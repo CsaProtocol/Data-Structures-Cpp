@@ -75,14 +75,14 @@ bool StackVec<Data>::operator!=(const StackVec& s) const noexcept {
 template <typename Data>
 const Data& StackVec<Data>::Top() const {
     if(Empty())
-        throw std::length_error("Couldn't remove from Stack. Actual size = 0");
+        throw std::length_error("Couldn't remove from StackQueue. Actual size = 0");
     return Vector<Data>::operator[](top-1);
 }
 //Top Function
 template <typename Data>
 Data& StackVec<Data>::Top() {
     if(Empty())
-        throw std::length_error("Couldn't remove from Stack. Actual size = 0");
+        throw std::length_error("Couldn't remove from StackQueue. Actual size = 0");
     return Vector<Data>::operator[](top-1);
 }
 
@@ -90,7 +90,7 @@ Data& StackVec<Data>::Top() {
 template<typename Data>
 void StackVec<Data>::Pop() {
     if(Empty())
-        throw std::length_error("Couldn't remove from Stack. Actual size = 0");
+        throw std::length_error("Couldn't remove from StackQueue. Actual size = 0");
     Data to_delete = std::move(Vector<Data>::operator[](--top));
     (void) to_delete;
 

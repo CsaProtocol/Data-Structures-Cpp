@@ -65,14 +65,14 @@ public:
 
   /* ************************************************************************ */
 
-  // Specific member functions (inherited from Stack)
+  // Specific member functions (inherited from StackQueue)
 
-  virtual const Data& Top() const override; // Override Stack member (non-mutable version; must throw std::length_error when empty)
-  virtual Data& Top() override; // Override Stack member (non-mutable version; must throw std::length_error when empty)
-  virtual void Pop() override; // Override Stack member (must throw std::length_error when empty)
-  virtual Data TopNPop() override; // Override Stack member (must throw std::length_error when empty)
-  virtual void Push(const Data&) override; // Override Stack member (copy of the value)
-  virtual void Push(Data&&) override; // Override Stack member (move of the value)
+  virtual const Data& Top() const override; // Override StackQueue member (non-mutable version; must throw std::length_error when empty)
+  virtual Data& Top() override; // Override StackQueue member (non-mutable version; must throw std::length_error when empty)
+  virtual void Pop() override; // Override StackQueue member (must throw std::length_error when empty)
+  virtual Data TopNPop() override; // Override StackQueue member (must throw std::length_error when empty)
+  virtual void Push(const Data&) override; // Override StackQueue member (copy of the value)
+  virtual void Push(Data&&) override; // Override StackQueue member (move of the value)
 
   /* ************************************************************************ */
 

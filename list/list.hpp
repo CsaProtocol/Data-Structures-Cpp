@@ -128,9 +128,9 @@ public:
 
   // Specific member functions (inherited from DictionaryContainer)
 
-  bool Insert(const Data &); // Copy of the value
-  bool Insert(Data &&); // Move of the value
-  bool Remove(const Data &);
+  bool Insert(const Data &) override; // Copy of the value
+  bool Insert(Data &&) override; // Move of the value
+  bool Remove(const Data &) override;
 
   /* ************************************************************************ */
 

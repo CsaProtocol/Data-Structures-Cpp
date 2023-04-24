@@ -11,7 +11,6 @@
 
 int main() {
   std::cout << "Lasd Libraries 2023" << std::endl;
-  lasdtest();
-  //Menu(); // Call in the menu of your library test!
+  Menu(); // Call in the menu of your library test!
   return 0;
 }

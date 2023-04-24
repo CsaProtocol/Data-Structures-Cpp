@@ -74,7 +74,7 @@ void stestStackInt(Stk& stk, uint& testnum, uint& testerr) {
   }
   testnum += loctestnum;
   testerr += loctesterr;
-  cout << "End of Stack<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << "End of StackQueue<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
 void stestStackInt(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
@@ -110,7 +110,7 @@ void stestStackFloat(Stk& stk, uint& testnum, uint& testerr) {
   }
   testnum += loctestnum;
   testerr += loctesterr;
-  cout << "End of Stack<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << "End of StackQueue<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
 void stestStackFloat(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
@@ -144,7 +144,7 @@ void stestStackString(Stk& stk, uint& testnum, uint& testerr) {
   }
   testnum += loctestnum;
   testerr += loctesterr;
-  cout << "End of Stack<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << "End of StackQueue<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
 void stestStackString(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
@@ -184,7 +184,7 @@ void stestStack(uint& testnum, uint& testerr) {
   stestStackString(loctestnum, loctesterr);
   testnum += loctestnum;
   testerr += loctesterr;
-  cout << endl << "Exercise 1B - Stack (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << endl << "Exercise 1B - StackQueue (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
 
 /* ************************************************************************** */

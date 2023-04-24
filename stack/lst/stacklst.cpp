@@ -50,13 +50,13 @@ bool StackLst<Data>::operator!=(const StackLst& toCompare) const noexcept {
 template<typename Data>
 const Data& StackLst<Data>::Top() const {
     if(Empty())
-        throw std::length_error("Stack has currently not a top. Size = 0");
+        throw std::length_error("StackQueue has currently not a top. Size = 0");
     return List<Data>::Front();
 }
 template<typename Data>
 Data& StackLst<Data>::Top() {
     if(Empty())
-        throw std::length_error("Stack has currently not a top. Size = 0");
+        throw std::length_error("StackQueue has currently not a top. Size = 0");
     return List<Data>::Front();
 }
 
@@ -64,7 +64,7 @@ Data& StackLst<Data>::Top() {
 template<typename Data>
 void StackLst<Data>::Pop() {
     if(Empty())
-        throw std::length_error("Stack has currently not a top. Size = 0");
+        throw std::length_error("StackQueue has currently not a top. Size = 0");
     List<Data>::RemoveFromFront();
 }
 
@@ -72,7 +72,7 @@ void StackLst<Data>::Pop() {
 template<typename Data>
 Data StackLst<Data>::TopNPop() {
     if(Empty())
-        throw std::length_error("Stack has currently not a top. Size = 0");
+        throw std::length_error("StackQueue has currently not a top. Size = 0");
     return List<Data>::FrontNRemove();
 }
 

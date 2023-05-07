@@ -61,7 +61,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PreOrderFoldableContainer : FoldableContainer<Data> {
+class PreOrderFoldableContainer : virtual public FoldableContainer<Data> {
 
 private:
 

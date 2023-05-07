@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <random>
+#include <climits>
 #include "../../queue/queue.hpp"
 #include "../../queue/vec/queuevec.hpp"
 #include "../../queue/lst/queuelst.hpp"
@@ -39,36 +40,29 @@ void QueueVecInt() {
                   << "Scelta: ";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Enqueue
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in: \n";
                 std::cin >> elemento;
                 QueueVecInt.Enqueue(elemento);
                 break;
             case '2':
-                std::system("clear"); //Dequeue
                 QueueVecInt.Dequeue();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //HeadNDequeue
+            case '3':
                 QueueVecInt.HeadNDequeue();
                 break;
             case '4':
-                std::system("clear"); //Top
                 QueueVecInt.Head();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if (QueueVecInt.Empty()) {
                     std::cout << "Queue vuota \n";
                 } else { std::cout << "Queue non vuota \n"; }
                 break;
             case '6':
-                std::system("clear"); //QueueSize
                 std::cout << "Dimensione della Queue pari a " << QueueVecInt.Size() << std::endl;
                 break;
-            case '7': //QueueClear
-                std::system("clear");
+            case '7':
                 std::cout << "Struttura ora vuota.\n";
                 QueueVecInt.Clear();
                 break;
@@ -112,36 +106,29 @@ void QueueLstInt() {
                   << "Scelta: \n";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Enqueue
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in: \n";
                 std::cin >> elemento;
                 QueueLstInt.Enqueue(elemento);
                 break;
             case '2':
-                std::system("clear"); //Dequeue
                 QueueLstInt.Dequeue();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //HeadNDequeue
+            case '3':
                 QueueLstInt.HeadNDequeue();
                 break;
             case '4':
-                std::system("clear"); //Top
                 QueueLstInt.Head();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if (QueueLstInt.Empty()) {
                     std::cout << "Queue vuota \n";
                 } else { std::cout << "Queue non vuota \n"; }
                 break;
             case '6':
-                std::system("clear"); //QueueSize
                 std::cout << "Dimensione della Queue pari a " << QueueLstInt.Size() << std::endl;
                 break;
-            case '7': //QueueClear
-                std::system("clear");
+            case '7':
                 std::cout << "Struttura ora vuota.\n";
                 QueueLstInt.Clear();
                 break;
@@ -183,38 +170,32 @@ void QueueVecDouble() {
                   << "7. QueueClear\n"
                   << "q. Esci dal programma\n"
                   << "Scelta: \n";
-        std::cin >> choice;        switch (choice) {
-            case '1': //Enqueue
-                std::system("clear");
-                std::cout << "Inserire elemento da inserire in: \n";
+        std::cin >> choice;        
+        switch (choice) {
+            case '1':
+                 std::cout << "Inserire elemento da inserire in: \n";
                 std::cin >> elemento;
                 QueueVecDouble.Enqueue(elemento);
                 break;
             case '2':
-                std::system("clear"); //Dequeue
                 QueueVecDouble.Dequeue();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //HeadNDequeue
+            case '3':
                 QueueVecDouble.HeadNDequeue();
                 break;
             case '4':
-                std::system("clear"); //Top
                 QueueVecDouble.Head();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if (QueueVecDouble.Empty()) {
                     std::cout << "Queue vuota \n";
                 } else { std::cout << "Queue non vuota \n"; }
                 break;
             case '6':
-                std::system("clear"); //QueueSize
                 std::cout << "Dimensione della Queue pari a " << QueueVecDouble.Size() << std::endl;
                 break;
-            case '7': //QueueClear
-                std::system("clear");
-                std::cout << "Struttura ora vuota.\n";
+            case '7': 
+                 std::cout << "Struttura ora vuota.\n";
                 QueueVecDouble.Clear();
                 break;
             case 'q':
@@ -256,37 +237,31 @@ void QueueLstDouble() {
                   << "7. QueueClear\n"
                   << "q. Esci dal programma\n"
                   << "Scelta: \n";
-        std::cin >> choice;        switch (choice) {
-            case '1': //Enqueue
-                std::system("clear");
+        std::cin >> choice;        
+        switch (choice) {
+            case '1':
                 std::cout << "Inserire elemento da inserire in: \n";
                 std::cin >> elemento;
                 QueueLstDouble.Enqueue(elemento);
                 break;
             case '2':
-                std::system("clear"); //Dequeue
                 QueueLstDouble.Dequeue();
                 break;
             case '3': //TopNPop
-                std::system("clear"); //HeadNDequeue
                 QueueLstDouble.HeadNDequeue();
                 break;
             case '4':
-                std::system("clear"); //Top
                 QueueLstDouble.Head();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if (QueueLstDouble.Empty()) {
                     std::cout << "Queue vuota \n";
                 } else { std::cout << "Queue non vuota \n"; }
                 break;
             case '6':
-                std::system("clear"); //QueueSize
                 std::cout << "Dimensione della Queue pari a " << QueueLstDouble.Size() << std::endl;
                 break;
-            case '7': //QueueClear
-                std::system("clear");
+            case '7': 
                 std::cout << "Struttura ora vuota.\n";
                 QueueLstDouble.Clear();
                 break;
@@ -332,37 +307,31 @@ void QueueVecString() {
                   << "7. QueueClear\n"
                   << "q. Esci dal programma\n"
                   << "Scelta: \n";
-        std::cin >> choice;        switch (choice) {
-            case '1': //Enqueue
-                std::system("clear");
+        std::cin >> choice;        
+        switch (choice) {
+            case '1':
                 std::cout << "Inserire elemento da inserire in: \n";
                 std::cin >> elemento;
                 QueueVecString.Enqueue(elemento);
                 break;
             case '2':
-                std::system("clear"); //Dequeue
                 QueueVecString.Dequeue();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //HeadNDequeue
+            case '3':
                 QueueVecString.HeadNDequeue();
                 break;
             case '4':
-                std::system("clear"); //Top
                 QueueVecString.Head();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if (QueueVecString.Empty()) {
                     std::cout << "Queue vuota \n";
                 } else { std::cout << "Queue non vuota \n"; }
                 break;
             case '6':
-                std::system("clear"); //QueueSize
                 std::cout << "Dimensione della Queue pari a " << QueueVecString.Size() << std::endl;
                 break;
-            case '7': //QueueClear
-                std::system("clear");
+            case '7': 
                 std::cout << "Struttura ora vuota.\n";
                 QueueVecString.Clear();
                 break;
@@ -408,37 +377,31 @@ void QueueLstString() {
                   << "7. QueueClear\n"
                   << "q. Esci dal programma\n"
                   << "Scelta: \n";
-        std::cin >> choice;        switch (choice) {
-            case '1': //Enqueue
-                std::system("clear");
+        std::cin >> choice;        
+        switch (choice) {
+            case '1': 
                 std::cout << "Inserire elemento da inserire in: \n";
                 std::cin >> elemento;
                 QueueLstString.Enqueue(elemento);
                 break;
             case '2':
-                std::system("clear"); //Dequeue
                 QueueLstString.Dequeue();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //HeadNDequeue
+            case '3':
                 QueueLstString.HeadNDequeue();
                 break;
             case '4':
-                std::system("clear"); //Top
                 QueueLstString.Head();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if (QueueLstString.Empty()) {
                     std::cout << "Queue vuota \n";
                 } else { std::cout << "Queue non vuota \n"; }
                 break;
             case '6':
-                std::system("clear"); //QueueSize
                 std::cout << "Dimensione della Queue pari a " << QueueLstString.Size() << std::endl;
                 break;
-            case '7': //QueueClear
-                std::system("clear");
+            case '7':
                 std::cout << "Struttura ora vuota.\n";
                 QueueLstString.Clear();
                 break;

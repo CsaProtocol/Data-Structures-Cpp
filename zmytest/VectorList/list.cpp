@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <random>
+#include <climits>
 #include "../../list/list.hpp"
 
 #include "list.hpp"
@@ -38,33 +39,27 @@ void ListInt() {
                   << "Scelta: ";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Insert
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in lista: \n";
                 std::cin >> elemento;
                 ListInt.InsertAtFront(elemento);
                 break;
             case '2':
-                std::system("clear"); //RemoveFromFront
                 ListInt.RemoveFromFront();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //FrontNRemove
+            case '3':
                 std::cout << "Elemento rimosso: " << ListInt.FrontNRemove() << std::endl;
                 break;
             case '4':
-                std::system("clear"); //Empty
                 if (ListInt.Empty()) {
                     std::cout << "Lista vuota \n";
                 } else { std::cout << "Lista non vuota \n"; }
                 break;
                 break;
             case '5':
-                std::system("clear"); //Size
                 std::cout << "Dimensione della lista pari a " << ListInt.Size() << std::endl;
                 break;
-            case '6': //ListClear
-                std::system("clear");
+            case '6':
                 std::cout << "Struttura ora vuota.\n";
                 ListInt.Clear();
                 break;
@@ -109,33 +104,27 @@ void ListDouble() {
                   << "Scelta: ";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Insert
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in lista: \n";
                 std::cin >> elemento;
                 ListDouble.InsertAtFront(elemento);
                 break;
             case '2':
-                std::system("clear"); //RemoveFromFront
                 ListDouble.RemoveFromFront();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //FrontNRemove
+            case '3':
                 std::cout << "Elemento rimosso: " << ListDouble.FrontNRemove() << std::endl;
                 break;
             case '4':
-                std::system("clear"); //Top
                 if (ListDouble.Empty()) {
                     std::cout << "Lista vuota \n";
                 } else { std::cout << "Lista non vuota \n"; }
                 break;
                 break;
             case '5':
-                std::system("clear"); //ListSize
                 std::cout << "Dimensione della struttura pari a " << ListDouble.Size() << std::endl;
                 break;
-            case '6': //ListClear
-                std::system("clear");
+            case '6':
                 std::cout << "Struttura ora vuota.\n";
                 ListDouble.Clear();
                 break;
@@ -181,32 +170,26 @@ void ListString() {
                   << "Scelta: ";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Insert
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in lista: \n";
                 std::cin >> elemento;
                 ListString.InsertAtFront(elemento);
                 break;
             case '2':
-                std::system("clear");
                 ListString.RemoveFromFront();
                 break;
-            case '3': //TopNPop
-                std::system("clear");
+            case '3':
                 std::cout << "Elemento rimosso: " << ListString.FrontNRemove() << std::endl;
                 break;
             case '4':
-                std::system("clear"); //Top
                 if (ListString.Empty()) {
                     std::cout << "Lista vuota \n";
                 } else { std::cout << "Lista non vuota \n"; }
                 break;
             case '5':
-                std::system("clear");
                 std::cout << "Dimensione della struttura pari a " << ListString.Size() << std::endl;
                 break;
             case '6':
-                std::system("clear");
                 std::cout << "Struttura ora vuota.\n";
                 ListString.Clear();
                 break;

@@ -10,11 +10,6 @@ using ushort = unsigned short int;
 
 #include <iostream>
 
-#include "StackQueue/stack.hpp"
-#include "StackQueue/queue.hpp"
-#include "VectorList/vector.hpp"
-#include "VectorList/list.hpp"
-
 void vectorListTest(){
 
     bool exit = false;
@@ -32,27 +27,21 @@ void vectorListTest(){
 
         switch(choice){
             case '1':
-                std::system("clear");
                 ListInt();
                 break;
             case '2':
-                std::system("clear");
                 ListDouble();
                 break;
             case '3':
-                std::system("clear");
                 ListString();
                 break;
             case '4':
-                std::system("clear");
                 VectorInt();
                 break;
             case '5':
-                std::system("clear");
                 VectorDouble();
                 break;
             case '6':
-                std::system("clear");
                 VectorString();
                 break;
             case 'q':
@@ -84,51 +73,39 @@ void stackQueueTest(){
 
         switch(choice){
             case '1':
-                std::system("clear");
                 StackVecInt();
                 break;
             case '2':
-                std::system("clear");
                 StackVecDouble();
                 break;
             case '3':
-                std::system("clear");
                 StackVecString();
                 break;
             case '4':
-                std::system("clear");
                 StackLstInt();
                 break;
             case '5':
-                std::system("clear");
                 StackLstDouble();
                 break;
             case '6':
-                std::system("clear");
                 StackLstString();
                 break;
             case 'a':
-                std::system("clear");
                 QueueVecInt();
                 break;
             case 'b':
-                std::system("clear");
                 QueueVecDouble();
                 break;
             case 'c':
-                std::system("clear");
                 QueueVecString();
                 break;
             case 'd':
-                std::system("clear");
                 QueueLstInt();
                 break;
             case 'e':
-                std::system("clear");
                 QueueLstDouble();
                 break;
             case 'f':
-                std::system("clear");
                 QueueLstString();
                 break;
             case 'q':

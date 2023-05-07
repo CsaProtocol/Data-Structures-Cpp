@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <random>
+#include <climits>
 #include "../../vector/vector.hpp"
 #include "vector.hpp"
 
@@ -39,7 +40,6 @@ void VectorInt() {
         std::cin >> choice;
         switch (choice) {
             case '1': //Insert
-                std::system("clear");
                 std::cout << "Inserire elemento da inserire in vector: \n";
                 std::cin >> elemento;
                 std::cout << "Inserire indice a cui inserire in vector: \n";
@@ -47,24 +47,19 @@ void VectorInt() {
                 VecInt[index] = elemento;
                 break;
             case '2': //Front
-                std::system("clear"); //FrontNRemove
                 std::cout << "Elemento in cima a Vector: " << VecInt.Front() << std::endl;
                 break;
             case '3': //Back
-                std::system("clear"); //FrontNRemove
                 std::cout << "Elemento in coda a Vector: " << VecInt.Back() << std::endl;
                 break;
             case '4':
-                std::system("clear"); //Size
                 std::cout << "Dimensione del Vector pari a " << VecInt.Size() << std::endl;
                 break;
             case '5': //ListClear
-                std::system("clear");
                 std::cout << "Struttura ora vuota.\n";
                 VecInt.Clear();
                 break;
             case  '6':
-                std::system("clear");
                 std::cout << "Vector ordinato.\n";
                 VecInt.Sort();
             case 'q':
@@ -107,33 +102,27 @@ void VectorDouble() {
                   << "Scelta: ";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Insert
-                std::system("clear");
+            case '1': 
                 std::cout << "Inserire elemento da inserire in vector: \n";
                 std::cin >> elemento;
                 std::cout << "Inserire indice a cui inserire in vector: \n";
                 std::cin >> index;
                 VecDouble[index] = elemento;
                 break;
-            case '2': //Front
-                std::system("clear"); //FrontNRemove
+            case '2': 
                 std::cout << "Elemento in cima a Vector: " << VecDouble.Front() << std::endl;
                 break;
-            case '3': //Back
-                std::system("clear"); //FrontNRemove
+            case '3': 
                 std::cout << "Elemento in coda a Vector: " << VecDouble.Back() << std::endl;
                 break;
             case '4':
-                std::system("clear"); //Size
                 std::cout << "Dimensione del Vector pari a " << VecDouble.Size() << std::endl;
                 break;
-            case '5': //ListClear
-                std::system("clear");
+            case '5':
                 std::cout << "Struttura ora vuota.\n";
                 VecDouble.Clear();
                 break;
             case  '6':
-                std::system("clear");
                 std::cout << "Vector ordinato.\n";
                 VecDouble.Sort();
             case 'q':
@@ -179,28 +168,23 @@ void VectorString() {
                   << "Scelta: ";
         std::cin >> choice;
         switch (choice) {
-            case '1': //Insert
-                std::system("clear");
+            case '1': 
                 std::cout << "Inserire elemento da inserire in vector: \n";
                 std::cin >> elemento;
                 std::cout << "Inserire indice a cui inserire in vector: \n";
                 std::cin >> index;
                 VecString[index] = elemento;
                 break;
-            case '2': //Front
-                std::system("clear"); //FrontNRemove
+            case '2': 
                 std::cout << "Elemento in cima a Vector: " << VecString.Front() << std::endl;
                 break;
-            case '3': //Back
-                std::system("clear"); //FrontNRemove
+            case '3': 
                 std::cout << "Elemento in coda a Vector: " << VecString.Back() << std::endl;
                 break;
             case '4':
-                std::system("clear"); //Size
                 std::cout << "Dimensione del Vector pari a " << VecString.Size() << std::endl;
                 break;
-            case '5': //ListClear
-                std::system("clear");
+            case '5':
                 std::cout << "Struttura ora vuota.\n";
                 VecString.Clear();
                 break;

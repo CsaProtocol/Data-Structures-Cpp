@@ -3,6 +3,10 @@
 
 #include <iostream>
 #include "../zlasdtest/test.hpp"
+#include "StackQueue/stack.hpp"
+#include "StackQueue/queue.hpp"
+#include "VectorList/vector.hpp"
+#include "VectorList/list.hpp"
 
 /* ************************************************************************** */
 

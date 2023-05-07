@@ -4,4 +4,6 @@
 g++ -O3 -std=c++20 -o main main.cpp \
   zmytest/test.cpp zlasdtest/test.cpp zlasdtest/container/container.cpp \
   zlasdtest/exercise1a/simpletest.cpp zlasdtest/exercise1a/fulltest.cpp \
-  zlasdtest/exercise1b/simpletest.cpp zlasdtest/exercise1b/fulltest.cpp
+  zlasdtest/exercise1b/simpletest.cpp zlasdtest/exercise1b/fulltest.cpp \
+  zmytest/StackQueue/queue.cpp zmytest/StackQueue/stack.cpp \
+  zmytest/VectorList/list.cpp zmytest/VectorList/vector.cpp

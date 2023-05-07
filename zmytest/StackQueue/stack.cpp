@@ -4,10 +4,11 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <climits>
 #include "../../stack/stack.hpp"
 #include "../../stack/vec/stackvec.hpp"
 #include "../../stack/lst/stacklst.hpp"
-#include "Stack.hpp"
+#include "stack.hpp"
 //Int
 void StackVecInt(){
     unsigned int dim;
@@ -41,35 +42,28 @@ void StackVecInt(){
         std::cin >> choice;
         switch(choice){
             case '1': //Push
-                std::system("clear");
                 std::cout << "Inserire elemento da inserire in Stack: \n";
                 std::cin >> elemento;
                 StackVecInt.Push(elemento);
                 break;
             case '2':
-                std::system("clear"); //Pop
                 StackVecInt.Pop();
                 break;
             case '3': //TopNPop
-                std::system("clear"); //TopNPop
                 StackVecInt.TopNPop();
                 break;
             case '4':
-                std::system("clear"); //Top
                 StackVecInt.Top();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if(StackVecInt.Empty()) {
                     std::cout << "Stack vuoto \n";
                 } else { std::cout << "Stack non vuoto \n"; }
                 break;
             case '6':
-                std::system("clear"); //StackSize
                 std::cout << "Dimensione dello stack pari a " << StackVecInt.Size() << std::endl;
                 break;
-            case '7': //StackClear
-                std::system("clear");
+            case '7':
                 std::cout<< "Struttura ora vuota.\n";
                 StackVecInt.Clear();
                 break;
@@ -113,36 +107,29 @@ void StackLstInt(){
                   << "Scelta: ";
         std::cin >> choice;
         switch(choice){
-            case '1': //Push
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in Stack: \n";
                 std::cin >> elemento;
                 StackLstInt.Push(elemento);
                 break;
             case '2':
-                std::system("clear"); //Pop
                 StackLstInt.Pop();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //TopNPop
+            case '3':
                 StackLstInt.TopNPop();
                 break;
             case '4':
-                std::system("clear"); //Top
                 StackLstInt.Top();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if(StackLstInt.Empty()) {
                     std::cout << "Stack vuoto \n";
                 } else { std::cout << "Stack non vuoto \n"; }
                 break;
             case '6':
-                std::system("clear"); //StackSize
                 std::cout << "Dimensione dello stack pari a " << StackLstInt.Size() << std::endl;
                 break;
-            case '7': //StackClear
-                std::system("clear");
+            case '7':
                 std::cout<< "Struttura ora vuota.\n";
                 StackLstInt.Clear();
                 break;
@@ -187,36 +174,29 @@ void StackVecDouble(){
                   << "Scelta: ";
         std::cin >> choice;
         switch(choice){
-            case '1': //Push
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in Stack: \n";
                 std::cin >> elemento;
                 StackVecDouble.Push(elemento);
                 break;
             case '2':
-                std::system("clear"); //Pop
                 StackVecDouble.Pop();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //TopNPop
+            case '3':
                 StackVecDouble.TopNPop();
                 break;
             case '4':
-                std::system("clear"); //Top
                 StackVecDouble.Top();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if(StackVecDouble.Empty()) {
                     std::cout << "Stack vuoto \n";
                 } else { std::cout << "Stack non vuoto \n"; }
                 break;
             case '6':
-                std::system("clear"); //StackSize
                 std::cout << "Dimensione dello stack pari a " << StackVecDouble.Size() << std::endl;
                 break;
-            case '7': //StackClear
-                std::system("clear");
+            case '7':
                 std::cout<< "Struttura ora vuota.\n";
                 StackVecDouble.Clear();
                 break;
@@ -261,36 +241,29 @@ void StackLstDouble(){
                   << "Scelta: ";
         std::cin >> choice;
         switch(choice){
-            case '1': //Push
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in Stack: \n";
                 std::cin >> elemento;
                 StackLstDouble.Push(elemento);
                 break;
             case '2':
-                std::system("clear"); //Pop
                 StackLstDouble.Pop();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //TopNPop
+            case '3': 
                 StackLstDouble.TopNPop();
                 break;
             case '4':
-                std::system("clear"); //Top
                 StackLstDouble.Top();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if(StackLstDouble.Empty()) {
                     std::cout << "Stack vuoto \n";
                 } else { std::cout << "Stack non vuoto \n"; }
                 break;
             case '6':
-                std::system("clear"); //StackSize
                 std::cout << "Dimensione dello stack pari a " << StackLstDouble.Size() << std::endl;
                 break;
-            case '7': //StackClear
-                std::system("clear");
+            case '7':
                 std::cout<< "Struttura ora vuota.\n";
                 StackLstDouble.Clear();
                 break;
@@ -339,35 +312,28 @@ void StackVecString(){
         std::cin >> choice;
         switch(choice){
             case '1': //Push
-                std::system("clear");
                 std::cout << "Inserire elemento da inserire in Stack: \n";
                 std::cin >> elemento;
                 StackVecString.Push(elemento);
                 break;
             case '2':
-                std::system("clear"); //Pop
                 StackVecString.Pop();
                 break;
             case '3': //TopNPop
-                std::system("clear"); //TopNPop
                 StackVecString.TopNPop();
                 break;
             case '4':
-                std::system("clear"); //Top
                 StackVecString.Top();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if(StackVecString.Empty()) {
                     std::cout << "Stack vuoto \n";
                 } else { std::cout << "Stack non vuoto \n"; }
                 break;
             case '6':
-                std::system("clear"); //StackSize
                 std::cout << "Dimensione dello stack pari a " << StackVecString.Size() << std::endl;
                 break;
-            case '7': //StackClear
-                std::system("clear");
+            case '7': 
                 std::cout<< "Struttura ora vuota.\n";
                 StackVecString.Clear();
                 break;
@@ -415,36 +381,29 @@ void StackLstString(){
                   << "Scelta: ";
         std::cin >> choice;
         switch(choice){
-            case '1': //Push
-                std::system("clear");
+            case '1':
                 std::cout << "Inserire elemento da inserire in Stack: \n";
                 std::cin >> elemento;
                 StackLstString.Push(elemento);
                 break;
             case '2':
-                std::system("clear"); //Pop
                 StackLstString.Pop();
                 break;
-            case '3': //TopNPop
-                std::system("clear"); //TopNPop
+            case '3': 
                 StackLstString.TopNPop();
                 break;
             case '4':
-                std::system("clear"); //Top
                 StackLstString.Top();
                 break;
             case '5':
-                std::system("clear"); //Empty
                 if(StackLstString.Empty()) {
                     std::cout << "Stack vuoto \n";
                 } else { std::cout << "Stack non vuoto \n"; }
                 break;
             case '6':
-                std::system("clear"); //StackSize
                 std::cout << "Dimensione dello stack pari a " << StackLstString.Size() << std::endl;
                 break;
-            case '7': //StackClear
-                std::system("clear");
+            case '7':
                 std::cout<< "Struttura ora vuota.\n";
                 StackLstString.Clear();
                 break;

@@ -42,7 +42,7 @@ public:
   StackVec(const StackVec&);
 
   // Move constructor
-  StackVec(StackVec&&);
+  StackVec(StackVec&&) noexcept;
 
   /* ************************************************************************ */
 

@@ -3,8 +3,6 @@
 #define VECTORTEST_HPP
 
 #include "../../vector/vector.hpp"
-using uint = unsigned int;
-using ulong = unsigned long;
 
 /* ************************************************************************** */
 

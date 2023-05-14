@@ -1,4 +1,3 @@
-
 #include <stdexcept>
 
 /* ************************************************************************** */
@@ -8,7 +7,6 @@ namespace lasd {
 /* ************************************************************************** */
 
 //FoldableContainer
-
 template<typename Data>
 bool FoldableContainer<Data>::Exists(const Data& dat) const noexcept {
     Data cmp = dat;
@@ -21,24 +19,30 @@ bool FoldableContainer<Data>::Exists(const Data& dat) const noexcept {
     return ris;
 }
 
-// PreOrderFoldableContainer
+//PreOrderFoldableContainer
 template<typename Data>
 void PreOrderFoldableContainer<Data>::Fold(FoldFunctor fun, void* punt) const {
     PreOrderFold(fun, punt);
 }
 
+//PostOrderFoldableContainer
 template<typename Data>
 void PostOrderFoldableContainer<Data>::Fold(FoldFunctor fun, void* punt) const {
     PostOrderFold(fun, punt);
 }
+
+//InOrderFoldableContainer
 template<typename Data>
 void InOrderFoldableContainer<Data>::Fold(FoldFunctor fun, void* punt) const {
     InOrderFold(fun, punt);
 }
-/*template<typename Data>
+
+//BreadthFoldableContainer
+template<typename Data>
 void BreadthFoldableContainer<Data>::Fold(FoldFunctor fun, void* punt) const {
     BreadthFold(fun, punt);
-}*/
+}
+
 /* ************************************************************************** */
 
 }

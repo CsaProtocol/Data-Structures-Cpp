@@ -93,15 +93,12 @@ inline void LinearContainer<Data>::PostOrderMap(MutableMapFunctor fun) {
 }
 
 /* ************************************************************************** */
+
 template<typename Data>
 bool LinearContainer<Data>::operator==(const LinearContainer<Data>& con) const noexcept {
     if(size != con.size) return false;
     for(unsigned long i = 0; i<size; i++) {
-        try{
-            if((*this)[i] != con[i]) {
-                return false;
-            }
-        } catch (const std::out_of_range&) {
+        if((*this)[i] != con[i]) {
             return false;
         }
     } return true;

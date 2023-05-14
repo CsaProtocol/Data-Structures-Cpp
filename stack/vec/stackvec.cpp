@@ -32,7 +32,7 @@ StackVec<Data>& StackVec<Data>::operator=(const StackVec<Data>& stackvec) {
 }
 //Move Constructor
 template<typename Data>
-StackVec<Data>::StackVec(StackVec<Data>&& stackvec): Vector<Data>::Vector(stackvec) {
+StackVec<Data>::StackVec(StackVec<Data>&& stackvec) noexcept : Vector<Data>::Vector(stackvec) {
     top = stackvec.top;
 }
 //Move Assignment
@@ -110,14 +110,16 @@ template<typename Data>
 void StackVec<Data>::Push(const Data& d) {
     if(top == size)
         Expand();
-    Vector<Data>::operator[](top++) = d;
+    element[top++] = d;
+    //Vector<Data>::operator[](top++) = d; //Useless
 }
 //Push move
 template<typename Data>
 void StackVec<Data>::Push(Data&& d) {
     if(top == size)
         Expand();
-    Vector<Data>::operator[](top++) = std::move(d);
+    element[top++] = std::move(d);
+    //Vector<Data>::operator[](top++) = std::move(d); //Useless
 }
 
 template<typename Data>

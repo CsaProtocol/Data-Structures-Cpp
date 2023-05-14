@@ -1,8 +1,6 @@
 
 #ifndef LISTTEST_HPP
 #define LISTTEST_HPP
-using uint = unsigned int;
-using ulong = unsigned long;
 
 #include "../../list/list.hpp"
 

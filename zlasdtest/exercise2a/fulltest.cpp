@@ -4,5 +4,5 @@ using uint = unsigned int;
 using ulong = unsigned long;
 /* ************************************************************************** */
 
-void testFullExercise1B(uint&, uint&) {
+void testFullExercise2A(uint&, uint&) {
 }

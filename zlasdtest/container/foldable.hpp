@@ -3,8 +3,6 @@
 #define FOLDABLETEST_HPP
 
 #include "../../container/foldable.hpp"
-using uint = unsigned int;
-using ulong = unsigned long;
 
 /* ************************************************************************** */
 

@@ -13,8 +13,6 @@
 #include "../vector/vector.hpp"
 
 #include "../list/list.hpp"
-using uint = unsigned int;
-using ulong = unsigned long;
 
 /* ************************************************************************** */
 

@@ -9,10 +9,10 @@
 /* ************************************************************************** */
 
 int main() {
-  std::cout << "Lasd Libraries 2024" << std::endl;
-  std::cout << "Seleziona il test da eseguire:" << std::endl;
-  std::cout << "1. zlasdtest" << std::endl;
-  std::cout << "2. zmytest" << std::endl;
+  std::cout << "Lasd Libraries 2024" << "\n";
+  std::cout << "Seleziona il test da eseguire:" << "\n";
+  std::cout << "1. zlasdtest" << "\n";
+  std::cout << "2. zmytest" << "\n";
   int choice;
   std::cin >> choice;
   switch(choice) {
@@ -23,7 +23,7 @@ int main() {
       mytest();
       break;
     default:
-      std::cout << "Scelta non valida" << std::endl;
+      std::cout << "Scelta non valida" << "\n";
   }
   return 0;
 }

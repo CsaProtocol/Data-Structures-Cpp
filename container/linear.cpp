@@ -79,14 +79,14 @@ void LinearContainer<Data>::Map(MapFun functor) {
 
 template<typename Data>
 void LinearContainer<Data>::PreOrderMap(MapFun functor) {
-	for (unsigned long i = 0; i < this->size; i++) {
+	for(unsigned long i = 0; i < this->size; i++) {
 		functor(operator[](i));
 	}
 }
 
 template<typename Data>
 void LinearContainer<Data>::PostOrderMap(MapFun functor) {
-	for (long i = this->size-1; i >= 0; --i) {
+	for(long i = this->size-1; i >= 0; --i) {
 		functor(operator[](i));
 	}
 }
@@ -106,7 +106,7 @@ bool SortableLinearContainer<Data>::operator!=(const SortableLinearContainer& so
 template<typename Data>
 void SortableLinearContainer<Data>::Sort() noexcept { //TODO - Da correggere in quicksort
 	if(this->Size() < 2) {
-		std::cerr << "Container is empty or has only one element" << std::endl;
+		std::cerr << "Container is empty or has only one element" << "\n";
 		return;
 	}
 	for (unsigned long i = 0; i < this->Size(); i++) {

@@ -186,13 +186,13 @@ bool SortableVector<Data>::operator!=(const SortableVector& toCompare) const noe
 
 template<typename Data>
 SortableVector<Data>& SortableVector<Data>::operator=(const SortableVector& toCopy) {
-	if(this != toCopy) {
-		this->size = toCopy.Size();
-		delete[] this->elements;
-		this->elements = new Data[toCopy.Size()];
-		for (ulong i = 0; i < toCopy.Size(); i++) {
-			this->elements[i] = toCopy.elements[i];
-		}
+	if(this == &toCopy) {
+		return *this;
+	} this->size = toCopy.Size();
+	delete[] this->elements;
+	this->elements = new Data[toCopy.Size()];
+	for (ulong i = 0; i < toCopy.Size(); i++) {
+		this->elements[i] = toCopy.elements[i];
 	} return *this;
 }
 

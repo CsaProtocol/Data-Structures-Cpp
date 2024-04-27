@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CidrRootsConfiguration">
+    <sourceRoots>
+      <file path="$PROJECT_DIR$/container" />
+      <file path="$PROJECT_DIR$/list" />
+      <file path="$PROJECT_DIR$/queue" />
+      <file path="$PROJECT_DIR$/stack" />
+      <file path="$PROJECT_DIR$/vector" />
+      <file path="$PROJECT_DIR$/zlasdtest" />
+      <file path="$PROJECT_DIR$/zlasdtest/container" />
+      <file path="$PROJECT_DIR$/zlasdtest/exercise1a" />
+      <file path="$PROJECT_DIR$/zmytest" />
+      <file path="$PROJECT_DIR$/zmytest/vector" />
+    </sourceRoots>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MakefileSettings">
     <option name="linkedExternalProjectsSettings">

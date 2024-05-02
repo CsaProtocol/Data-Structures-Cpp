@@ -51,7 +51,7 @@ template<typename Data>
 bool StackVec<Data>::operator==(const StackVec<Data>& stack) const noexcept {
 	if(stackRealSize != stack.stackRealSize) {
 		return false;
-	}
+	} if(stackRealSize == 0) return true;
 	for(ulong i = 0; i < stackRealSize; i++) {
 		if(elements[i] != stack.elements[i]) {
 			return false;

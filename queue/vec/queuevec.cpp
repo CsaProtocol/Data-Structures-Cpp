@@ -58,6 +58,7 @@ QueueVec<Data>& QueueVec<Data>::operator=(QueueVec&& queue) noexcept {
 template <typename Data>
 bool QueueVec<Data>::operator==(const QueueVec& queue) const noexcept {
 	if (this->queueRealSize != queue.queueRealSize) return false;
+	if (this->queueRealSize == 0) return true;
 	unsigned int i = 0;
 	unsigned int j = 0;
 	while(i != this->queueHead && j != queue.queueHead) {

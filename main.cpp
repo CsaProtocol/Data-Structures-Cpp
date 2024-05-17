@@ -20,7 +20,7 @@ int main() {
       lasdtest();
       break;
     case 2:
-      mytest();
+      zmytest::mytest();
       break;
     default:
       std::cout << "Scelta non valida" << "\n";

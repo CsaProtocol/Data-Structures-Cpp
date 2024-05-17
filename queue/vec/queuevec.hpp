@@ -14,17 +14,17 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class QueueVec : virtual public Vector<Data>,
+class QueueVec : virtual protected Vector<Data>,
                  virtual public Queue<Data> {
 
 protected:
 	using Container::size;
   using Vector<Data>::elements;
+	using Vector<Data>::operator[];
 	unsigned long queueRealSize = 0;
 
 private:
 	unsigned long queueHead = 0;
-
 
 public:
   QueueVec();
@@ -51,6 +51,9 @@ public:
   bool Empty() const noexcept override;
   unsigned long Size() const noexcept override;
   void Clear() override;
+
+protected:
+	void SafeResize(const unsigned long);
 };
 
 /* ************************************************************************** */

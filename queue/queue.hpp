@@ -23,8 +23,8 @@ public:
   Queue& operator=(const Queue&) = delete;
   Queue& operator=(Queue&&) = delete;
 
-  virtual bool operator==(const Queue&) const noexcept = delete;
-  virtual bool operator!=(const Queue&) const noexcept = delete;
+  bool operator==(const Queue&) const noexcept = delete;
+  bool operator!=(const Queue&) const noexcept = delete;
 
   virtual const Data& Head() const = 0;
   virtual Data& Head() = 0;

@@ -37,10 +37,10 @@ public:
   Vector& operator=(const Vector&) noexcept;
   Vector& operator=(Vector&&) noexcept;
 
-  virtual bool operator==(const Vector&) const noexcept;
-  virtual bool operator!=(const Vector&) const noexcept;
+  bool operator==(const Vector&) const noexcept;
+  bool operator!=(const Vector&) const noexcept;
 
-  void Clear() override; // TODO - Override utile (?) - Da verificare
+  void Clear() override;
   void Resize(ulong) override;
 
   virtual const Data& operator[](ulong) const override;
@@ -78,8 +78,8 @@ public:
   SortableVector& operator=(const SortableVector&);
   SortableVector& operator=(SortableVector&&) noexcept;
 
-  virtual bool operator==(const SortableVector&) const noexcept;
-  virtual bool operator!=(const SortableVector&) const noexcept;
+  bool operator==(const SortableVector&) const noexcept;
+  bool operator!=(const SortableVector&) const noexcept;
 
 };
 

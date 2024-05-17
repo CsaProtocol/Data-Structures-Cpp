@@ -3,17 +3,21 @@
 #include "queue/queue.hpp"
 #include "stack/stack.hpp"
 
-void mytest() {
-	unsigned int testnum = 0;
-	unsigned int testerr = 0;
-	testVector(testnum, testerr);
+namespace zmytest {
 
-	testList(testnum, testerr);
-	testDictionaryList(testnum, testerr);
+	void mytest() {
+		unsigned int testnum = 0;
+		unsigned int testerr = 0;
+		testVector(testnum, testerr);
 
-	testStackVector(testnum, testerr);
-	testStackList(testnum, testerr);
+		testList(testnum, testerr);
+		testDictionaryList(testnum, testerr);
 
-	testQueueVector(testnum, testerr);
-	testQueueList(testnum, testerr);
+		testStackVector(testnum, testerr);
+		testStackList(testnum, testerr);
+
+		testQueueVector(testnum, testerr);
+		testQueueList(testnum, testerr);
+	}
+
 }

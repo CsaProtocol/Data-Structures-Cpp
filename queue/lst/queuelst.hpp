@@ -14,13 +14,14 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class QueueLst : virtual public List<Data>,
+class QueueLst : virtual protected List<Data>,
                  virtual public Queue<Data> {
 
 protected:
   using List<Data>::head;
   using List<Data>::tail;
   using List<Data>::Node;
+	using List<Data>::operator[];
 
 public:
   QueueLst() = default;

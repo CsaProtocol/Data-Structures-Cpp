@@ -51,8 +51,8 @@ public:
 
   List& operator=(const List&) noexcept;
   List& operator=(List&&) noexcept;
-  virtual bool operator==(const List&) const noexcept;
-  virtual bool operator!=(const List&) const noexcept;
+  bool operator==(const List&) const noexcept;
+  bool operator!=(const List&) const noexcept;
   Data& operator[](unsigned long) override;
   const Data& operator[](unsigned long) const override;
 

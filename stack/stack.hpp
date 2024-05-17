@@ -23,8 +23,8 @@ public:
   Stack& operator=(const Stack&) = delete;
   Stack& operator=(Stack&&) = delete;
 
-  virtual bool operator==(const Stack&) const noexcept = delete;
-  virtual bool operator!=(const Stack&) const noexcept = delete;
+  bool operator==(const Stack&) const noexcept = delete;
+  bool operator!=(const Stack&) const noexcept = delete;
 
   virtual const Data& Top() const = 0;
   virtual Data& Top() = 0;

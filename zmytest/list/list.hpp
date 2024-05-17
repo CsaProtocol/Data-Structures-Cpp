@@ -11,7 +11,9 @@
 #include "../../zlasdtest/container/traversable.hpp"
 #include "../../zlasdtest/container/dictionary.hpp"
 
-void testList(unsigned int&, unsigned int&);
-void testDictionaryList(unsigned int&, unsigned int&);
+namespace zmytest {
+	void testList(unsigned int&, unsigned int&);
+	void testDictionaryList(unsigned int&, unsigned int&);
+}
 
 #endif

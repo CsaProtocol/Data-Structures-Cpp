@@ -27,8 +27,8 @@ public:
   TraversableContainer& operator=(const TraversableContainer&) = delete;
   TraversableContainer& operator=(TraversableContainer&&) = delete;
 
-  virtual bool operator==(const TraversableContainer&) const noexcept = delete;
-  virtual bool operator!=(const TraversableContainer&) const noexcept = delete;
+  bool operator==(const TraversableContainer&) const noexcept = delete;
+  bool operator!=(const TraversableContainer&) const noexcept = delete;
 
   using TraverseFun = std::function<void(const Data &)>;
   virtual void Traverse(TraverseFun) const = 0;
@@ -55,8 +55,8 @@ public:
   PreOrderTraversableContainer& operator=(const PreOrderTraversableContainer&) = delete;
   PreOrderTraversableContainer& operator=(PreOrderTraversableContainer&&) = delete;
 
-  virtual bool operator==(const PreOrderTraversableContainer&) const noexcept = delete;
-  virtual bool operator!=(const PreOrderTraversableContainer&) const noexcept = delete;
+  bool operator==(const PreOrderTraversableContainer&) const noexcept = delete;
+  bool operator!=(const PreOrderTraversableContainer&) const noexcept = delete;
 
   using typename TraversableContainer<Data>::TraverseFun;
   virtual void PreOrderTraverse(TraverseFun) const = 0;
@@ -86,8 +86,8 @@ public:
   PostOrderTraversableContainer& operator=(const PostOrderTraversableContainer&) = delete;
   PostOrderTraversableContainer& operator=(PostOrderTraversableContainer&&) = delete;
 
-  virtual bool operator==(const PostOrderTraversableContainer&) const noexcept = delete;
-  virtual bool operator!=(const PostOrderTraversableContainer&) const noexcept = delete;
+  bool operator==(const PostOrderTraversableContainer&) const noexcept = delete;
+  bool operator!=(const PostOrderTraversableContainer&) const noexcept = delete;
 
   using typename TraversableContainer<Data>::TraverseFun;
 
@@ -117,9 +117,8 @@ public:
 
   InOrderTraversableContainer& operator=(const InOrderTraversableContainer&) = delete;
   InOrderTraversableContainer& operator=(InOrderTraversableContainer&&) = delete;
-
-  virtual bool operator==(const InOrderTraversableContainer&) const noexcept = delete;
-  virtual bool operator!=(const InOrderTraversableContainer&) const noexcept = delete;
+  bool operator==(const InOrderTraversableContainer&) const noexcept = delete;
+  bool operator!=(const InOrderTraversableContainer&) const noexcept = delete;
 
   using typename TraversableContainer<Data>::TraverseFun;
   virtual void InOrderTraverse(TraverseFun) const = 0;

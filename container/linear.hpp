@@ -52,8 +52,8 @@ namespace lasd {
 		virtual ~SortableLinearContainer() override = default;
 		SortableLinearContainer &operator=(const SortableLinearContainer &) = delete;
 		SortableLinearContainer &operator=(SortableLinearContainer &&) = delete;
-		virtual bool operator==(const SortableLinearContainer &) const noexcept;
-		virtual bool operator!=(const SortableLinearContainer &) const noexcept;
+		bool operator==(const SortableLinearContainer &) const noexcept;
+		bool operator!=(const SortableLinearContainer &) const noexcept;
 		void Sort() noexcept;
 
 	protected:

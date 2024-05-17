@@ -24,8 +24,8 @@ public:
   Container& operator=(const Container&) = delete;
   Container& operator=(Container&&) = delete;
 
-  virtual bool operator==(const Container&) const = delete;
-  virtual bool operator!=(const Container&) const = delete;
+  bool operator==(const Container&) const = delete;
+  bool operator!=(const Container&) const = delete;
 
   virtual bool Empty() const noexcept { return(size == 0); }
   virtual unsigned long Size() const noexcept { return size; }
@@ -44,8 +44,8 @@ public:
   ClearableContainer& operator=(const ClearableContainer&) = delete;
   ClearableContainer& operator=(ClearableContainer&&) = delete;
 
-  virtual bool operator==(const ClearableContainer&) const noexcept = delete;
-  virtual bool operator!=(const ClearableContainer&) const noexcept = delete;
+  bool operator==(const ClearableContainer&) const noexcept = delete;
+  bool operator!=(const ClearableContainer&) const noexcept = delete;
 
   virtual void Clear() = 0;
 
@@ -63,8 +63,8 @@ public:
   ResizableContainer& operator=(const ResizableContainer&) = delete;
   ResizableContainer& operator=(ResizableContainer&&) = delete;
 
-  virtual bool operator==(const ResizableContainer&) const noexcept = delete;
-  virtual bool operator!=(const ResizableContainer&) const noexcept = delete;
+  bool operator==(const ResizableContainer&) const noexcept = delete;
+  bool operator!=(const ResizableContainer&) const noexcept = delete;
 
   virtual void Resize(ulong updatedSize) = 0;
 

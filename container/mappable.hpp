@@ -27,8 +27,8 @@ public:
   MappableContainer& operator=(const MappableContainer&) = delete;
   MappableContainer& operator=(MappableContainer&&) = delete;
 
-  virtual bool operator==(const MappableContainer&) const noexcept = delete;
-  virtual bool operator!=(const MappableContainer&) const noexcept = delete;
+  bool operator==(const MappableContainer&) const noexcept = delete;
+  bool operator!=(const MappableContainer&) const noexcept = delete;
 
   /* ************************************************************************ */
 
@@ -53,8 +53,8 @@ public:
   PreOrderMappableContainer& operator=(const PreOrderMappableContainer&) = delete;
   PreOrderMappableContainer& operator=(PreOrderMappableContainer&&) = delete;
 
-  virtual bool operator==(PreOrderMappableContainer const&) const noexcept = delete;
-  virtual bool operator!=(PreOrderMappableContainer const&) const noexcept = delete;
+  bool operator==(PreOrderMappableContainer const&) const noexcept = delete;
+  bool operator!=(PreOrderMappableContainer const&) const noexcept = delete;
 
   using typename MappableContainer<Data>::MapFun;
   virtual void PreOrderMap(MapFun) = 0;
@@ -79,8 +79,8 @@ public:
   PostOrderMappableContainer& operator=(const PostOrderMappableContainer&) = delete;
   PostOrderMappableContainer& operator=(PostOrderMappableContainer&&) = delete;
 
-  virtual bool operator==(PostOrderMappableContainer const&) const noexcept = delete;
-  virtual bool operator!=(PostOrderMappableContainer const&) const noexcept = delete;
+  bool operator==(PostOrderMappableContainer const&) const noexcept = delete;
+  bool operator!=(PostOrderMappableContainer const&) const noexcept = delete;
 
   using typename MappableContainer<Data>::MapFun;
   virtual void PostOrderMap(MapFun) = 0;
@@ -105,8 +105,8 @@ public:
   InOrderMappableContainer& operator=(const InOrderMappableContainer&) = delete;
   InOrderMappableContainer& operator=(InOrderMappableContainer&&) = delete;
 
-  virtual bool operator==(const InOrderMappableContainer&) const noexcept = delete;
-  virtual bool operator!=(const InOrderMappableContainer&) const noexcept = delete;
+  bool operator==(const InOrderMappableContainer&) const noexcept = delete;
+  bool operator!=(const InOrderMappableContainer&) const noexcept = delete;
 
   using typename MappableContainer<Data>::MapFun;
   virtual void InOrderMap(MapFun) = 0;

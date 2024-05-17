@@ -106,7 +106,6 @@ bool SortableLinearContainer<Data>::operator!=(const SortableLinearContainer& so
 template<typename Data>
 void SortableLinearContainer<Data>::Sort() noexcept { //TODO - Da correggere in quicksort
 	if(this->Size() < 2) {
-		std::cerr << "Container is empty or has only one element" << "\n";
 		return;
 	}
 	for (unsigned long i = 0; i < this->Size(); i++) {

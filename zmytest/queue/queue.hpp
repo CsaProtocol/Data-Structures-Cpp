@@ -9,7 +9,9 @@
 #include "../../queue/vec/queuevec.hpp"
 #include "../../queue/lst/queuelst.hpp"
 
-void testQueueVector(unsigned int&, unsigned int&);
-void testQueueList(unsigned int&, unsigned int&);
+namespace zmytest {
+	void testQueueVector(unsigned int&, unsigned int&);
+	void testQueueList(unsigned int&, unsigned int&);
+}
 
 #endif

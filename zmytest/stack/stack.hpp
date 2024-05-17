@@ -9,7 +9,8 @@
 #include "../../stack/vec/stackvec.hpp"
 #include "../../stack/lst/stacklst.hpp"
 
-void testStackVector(unsigned int&, unsigned int&);
-void testStackList(unsigned int&, unsigned int&);
-
+namespace zmytest {
+	void testStackVector(unsigned int&, unsigned int&);
+	void testStackList(unsigned int&, unsigned int&);
+}
 #endif

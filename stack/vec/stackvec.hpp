@@ -15,7 +15,7 @@ namespace lasd {
 
 template <typename Data>
 class StackVec : virtual public Stack<Data>,
-                 virtual public Vector<Data> {
+                 virtual protected Vector<Data> {
 
 protected:
 	using Container::size;
@@ -32,7 +32,7 @@ public:
   StackVec(const StackVec<Data>&);
   StackVec(StackVec<Data>&&) noexcept;
 
-  virtual ~StackVec() override; //TODO - da considerare usare default
+  virtual ~StackVec() override;
 
   StackVec& operator=(const StackVec<Data>&);
   StackVec& operator=(StackVec<Data>&&) noexcept;

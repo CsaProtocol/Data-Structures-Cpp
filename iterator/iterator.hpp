@@ -14,11 +14,11 @@ public:
 
   Iterator() = default;
   Iterator(const Iterator&) = delete;
-  Iterator(Iterator&&) = delete;
+  Iterator(Iterator&&) noexcept = delete;
   virtual ~Iterator() = default;
 
   Iterator& operator=(const Iterator&) = delete;
-  Iterator& operator=(Iterator&&) = delete;
+  Iterator& operator=(Iterator&&) noexcept = delete;
 
   bool operator==(const Iterator&) const noexcept = delete;
   bool operator!=(const Iterator&) const noexcept = delete;
@@ -36,14 +36,15 @@ class MutableIterator : virtual public Iterator<Data> {
 public:
 
   MutableIterator() = default;
-  MutableIterator(const MutableIterator&) = default;
-  MutableIterator(MutableIterator&&) = default;
-  virtual ~MutableIterator() override = default;
+  MutableIterator(const MutableIterator&) = delete;
+  MutableIterator(MutableIterator&&) noexcept = delete;
+  ~MutableIterator() override = default;
 
   MutableIterator& operator=(const MutableIterator&) = delete;
-  MutableIterator& operator=(MutableIterator&&) = delete;
+  MutableIterator& operator=(MutableIterator&&) noexcept = delete;
 
   bool operator==(const MutableIterator&) const noexcept = delete;
+  bool operator!=(const MutableIterator&) const noexcept = delete;
 
   virtual Data& operator*() = 0;
 
@@ -58,11 +59,11 @@ public:
 
   ForwardIterator() = default;
   ForwardIterator(const ForwardIterator&) = default;
-  ForwardIterator(ForwardIterator&&) = default;
+  ForwardIterator(ForwardIterator&&) noexcept = default;
   virtual ~ForwardIterator() = default;
 
   ForwardIterator& operator=(const ForwardIterator&) = delete;
-  ForwardIterator& operator=(ForwardIterator&&) = delete;
+  ForwardIterator& operator=(ForwardIterator&&) noexcept = delete;
 
   bool operator==(const ForwardIterator&) const noexcept = delete;
   bool operator!=(const ForwardIterator&) const noexcept = delete;
@@ -74,19 +75,18 @@ public:
 
 template <typename Data>
 class ResettableIterator : virtual public Iterator<Data> {
-
 public:
 
   ResettableIterator() = default;
   ResettableIterator(const ResettableIterator&) = default;
-  ResettableIterator(ResettableIterator&&) = default;
+  ResettableIterator(ResettableIterator&&) noexcept = default;
   virtual ~ResettableIterator() = default;
 
   ResettableIterator& operator=(const ResettableIterator&) = delete;
-  ResettableIterator& operator=(ResettableIterator&&) = delete;
+  ResettableIterator& operator=(ResettableIterator&&) noexcept = delete;
 
   bool operator==(const ResettableIterator&) const noexcept = delete;
-  bool operator!=(const ResettableIterator&) const noexcept = delete;
+  friend bool operator!=(const ResettableIterator&) noexcept = delete;
 
   virtual void Reset() noexcept = 0;
 

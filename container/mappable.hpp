@@ -59,7 +59,7 @@ public:
   using typename MappableContainer<Data>::MapFun;
   virtual void PreOrderMap(MapFun) = 0;
 
-  inline void Map(MapFun fun) override {
+  void Map(MapFun fun) override {
     PreOrderMap(fun);
   }
 
@@ -85,7 +85,7 @@ public:
   using typename MappableContainer<Data>::MapFun;
   virtual void PostOrderMap(MapFun) = 0;
 
-  inline void Map(MapFun fun) override {
+  void Map(MapFun fun) override {
     PostOrderMap(fun);
   }
 
@@ -111,7 +111,7 @@ public:
   using typename MappableContainer<Data>::MapFun;
   virtual void InOrderMap(MapFun) = 0;
 
-  inline void Map(MapFun fun) override {
+  void Map(MapFun fun) override {
     InOrderMap(fun);
   }
 
@@ -131,13 +131,13 @@ public:
   BreadthMappableContainer& operator=(const BreadthMappableContainer&) = delete;
   BreadthMappableContainer& operator=(BreadthMappableContainer&&) = delete;
 
-  virtual bool operator==(const BreadthMappableContainer&) const noexcept = delete;
-  virtual bool operator!=(const BreadthMappableContainer&) const noexcept = delete;
+  bool operator==(const BreadthMappableContainer&) const noexcept = delete;
+  bool operator!=(const BreadthMappableContainer&) const noexcept = delete;
 
   using typename MappableContainer<Data>::MapFun;
   virtual void BreadthMap(MapFun) = 0;
 
-  inline void Map(MapFun fun) override {
+  void Map(MapFun fun) override {
     BreadthMap(fun);
   }
 

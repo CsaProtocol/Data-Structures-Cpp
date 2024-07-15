@@ -104,17 +104,30 @@ bool SortableLinearContainer<Data>::operator!=(const SortableLinearContainer& so
 }
 
 template<typename Data>
-void SortableLinearContainer<Data>::Sort() noexcept { //TODO - Da correggere in quicksort
+void SortableLinearContainer<Data>::Sort() noexcept {
 	if(this->Size() < 2) {
 		return;
 	}
-	for (unsigned long i = 0; i < this->Size(); i++) {
-        for (unsigned long j = 0; j < this->Size() - i - 1; j++) {
-            if (this->operator[](j) > this->operator[](j + 1)) {
-                std::swap(this->operator[](j), this->operator[](j + 1));
-            }
-        }
+	QuickSort(0, this->Size() - 1);
+}
+
+template<typename Data>
+void SortableLinearContainer<Data>::QuickSort(const unsigned long start, const unsigned long end) {
+  if (end - start < 2) return;
+  const Data& pivot = this->operator[](end-1);
+  unsigned long current_index = start - 1;
+  unsigned long swap_marker = start - 1;
+
+  while (++current_index < end){
+    if (this->operator[](current_index) <= pivot){
+      if (current_index > ++swap_marker) {
+        std::swap(this->operator[](current_index), this->operator[](swap_marker));
+      }
     }
+  }
+
+  QuickSort(start, swap_marker);
+  QuickSort(swap_marker + 1, end);
 }
 
 

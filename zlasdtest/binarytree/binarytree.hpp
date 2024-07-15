@@ -3,6 +3,7 @@
 #define BINARYTREETEST_HPP
 
 #include "../../binarytree/binarytree.hpp"
+#include <cassert>
 
 /* ************************************************************************** */
 

@@ -20,7 +20,7 @@ class Vector : virtual public ResizableContainer,
 protected:
 
   using Container::size;
-  Data *elements = nullptr;
+  Data* elements = nullptr;
 
 public:
 
@@ -32,19 +32,19 @@ public:
   Vector(const Vector&);
   Vector(Vector&&) noexcept;
 
-  virtual ~Vector() override;
+  ~Vector() override;
 
   Vector& operator=(const Vector&) noexcept;
   Vector& operator=(Vector&&) noexcept;
 
   bool operator==(const Vector&) const noexcept;
-  bool operator!=(const Vector&) const noexcept;
+  bool operator!=(const Vector &) const noexcept;
 
   void Clear() override;
   void Resize(ulong) override;
 
-  virtual const Data& operator[](ulong) const override;
-  virtual Data& operator[](ulong) override;
+  const Data& operator[](ulong) const override;
+  Data& operator[](ulong) override;
 
   const Data& Front() const override;
   Data& Front() override;
@@ -73,7 +73,7 @@ public:
   SortableVector(const SortableVector&);
   SortableVector(SortableVector&&) noexcept;
 
-  virtual ~SortableVector() override;
+  ~SortableVector() override;
 
   SortableVector& operator=(const SortableVector&);
   SortableVector& operator=(SortableVector&&) noexcept;

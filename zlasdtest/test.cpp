@@ -3,6 +3,7 @@
 #include "./exercise1b/test.hpp"
 #include "exercise2a/test.hpp"
 #include "exercise2b/test.hpp"
+#include "test.hpp"
 
 /* ************************************************************************** */
 

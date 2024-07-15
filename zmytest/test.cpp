@@ -2,6 +2,7 @@
 #include "list/list.hpp"
 #include "queue/queue.hpp"
 #include "stack/stack.hpp"
+#include "test.hpp"
 
 namespace zmytest {
 

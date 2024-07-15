@@ -25,8 +25,8 @@ class BinaryTree : virtual public PreOrderTraversableContainer<Data>,
                    virtual public BreadthTraversableContainer<Data> {
 
 protected:
-
   using Container::size;
+
 public:
 
   struct Node {
@@ -35,39 +35,43 @@ public:
     bool operator!=(const Node&) const noexcept;
 
   public:
-    friend class BinaryTree<Data>;
+    friend class BinaryTree;
 
     Node() = default;
     virtual ~Node() = default;
-    Node(const Node&) = delete;
-    Node(Node&&) = delete;
+
+    Node& operator=(const Node&) = delete;
+    Node& operator=(Node&&) noexcept = delete;
 
     virtual const Data& Element() const noexcept = 0;
-    inline bool IsLeaf() const noexcept; // NOLINT(*-use-nodiscard)
-    bool HasLeftChild() const noexcept; // NOLINT(*-use-nodiscard)
-    bool HasRightChild() const noexcept; // NOLINT(*-use-nodiscard)
+    virtual bool IsLeaf() const noexcept;
+    virtual bool HasLeftChild() const noexcept = 0;
+    virtual bool HasRightChild() const noexcept = 0;
 
-    inline virtual Node& LeftChild() const = 0;
-    inline virtual Node& RightChild() const = 0;
+    virtual const Node& LeftChild() const = 0;
+    virtual const Node& RightChild() const = 0;
 
   };
 
-  virtual ~BinaryTree() override = default;
+  ~BinaryTree() override = default;
 
   BinaryTree& operator=(const BinaryTree&) = delete;
-  BinaryTree& operator=(BinaryTree&&) = delete;
+  BinaryTree& operator=(BinaryTree&&) noexcept = delete;
 
-  virtual bool operator==(const BinaryTree&) const noexcept;
-  virtual bool operator!=(const BinaryTree&) const noexcept;
+  bool operator==(const BinaryTree&) const noexcept;
+  bool operator!=(const BinaryTree&) const noexcept;
 
   virtual const Node& Root() const = 0;
 
   using typename TraversableContainer<Data>::TraverseFun;
-  virtual void Traverse(TraverseFun) const override;
-  virtual void PreOrderTraverse(TraverseFun) const override;
-  virtual void PostOrderTraverse(TraverseFun) const override;
-  virtual void InOrderTraverse(TraverseFun) const override;
-  virtual void BreadthTraverse(TraverseFun) const override;
+  void Traverse(TraverseFun) const override;
+  void PreOrderTraverse(TraverseFun) const override;
+  void PostOrderTraverse(TraverseFun) const override;
+  void InOrderTraverse(TraverseFun) const override;
+  void BreadthTraverse(TraverseFun) const override;
+
+  using Container::Size;
+  using Container::Empty;
 
 protected:
   virtual void PreOrderTraverseAux(TraverseFun, const Node&) const;
@@ -88,34 +92,40 @@ class MutableBinaryTree : virtual public ClearableContainer,
 
 public:
 
-  struct MutableNode : virtual public BinaryTree<Data>::Node {
+  struct MutableNode : virtual BinaryTree<Data>::Node {
+    friend class MutableBinaryTree;
 
-    friend class MutableBinaryTree<Data>;
-
-    virtual ~MutableNode() override = default;
+    MutableNode() = default;
+    ~MutableNode() override = default;
 
     MutableNode& operator=(const MutableNode&) = delete;
     MutableNode& operator=(MutableNode&&) noexcept = delete;
 
     virtual Data& Element() noexcept = 0;
+    using BinaryTree<Data>::Node::Element;
+
     virtual MutableNode& LeftChild() = 0;
+    using BinaryTree<Data>::Node::LeftChild;
+
     virtual MutableNode& RightChild() = 0;
+    using BinaryTree<Data>::Node::RightChild;
 
   };
 
-  virtual ~MutableBinaryTree() override = default;
+  ~MutableBinaryTree() override = default;
 
   MutableBinaryTree& operator=(const MutableBinaryTree&) = delete;
   MutableBinaryTree& operator=(MutableBinaryTree&&) noexcept = delete;
 
+  using BinaryTree<Data>::Root;
   virtual MutableNode& Root() = 0;
 
   using typename MappableContainer<Data>::MapFun;
-  virtual void Map(MapFun) override;
-  virtual void PreOrderMap(MapFun) override;
-  virtual void PostOrderMap(MapFun) override;
-  virtual void InOrderMap(MapFun) override;
-  virtual void BreadthMap(MapFun) override;
+  void Map(MapFun) override;
+  void PreOrderMap(MapFun) override;
+  void PostOrderMap(MapFun) override;
+  void InOrderMap(MapFun) override;
+  void BreadthMap(MapFun) override;
 
 };
 
@@ -124,31 +134,30 @@ public:
 template <typename Data>
 class BTPreOrderIterator : virtual public ForwardIterator<Data>,
                            virtual public ResettableIterator<Data> {
+public:
+  BTPreOrderIterator(const BinaryTree<Data>&);
+  BTPreOrderIterator(const BTPreOrderIterator&);
+  BTPreOrderIterator(BTPreOrderIterator&&) noexcept;
+
+  ~BTPreOrderIterator() override = default;
+
+  BTPreOrderIterator& operator=(const BTPreOrderIterator&);
+  BTPreOrderIterator& operator=(BTPreOrderIterator&&) noexcept;
+
+  bool operator==(const BTPreOrderIterator&) const noexcept;
+  bool operator!=(const BTPreOrderIterator&) const noexcept;
+
+  const Data& operator*() const override;
+  bool Terminated() const noexcept override;
+
+  BTPreOrderIterator& operator++() override;
+  void Reset() noexcept override;
+
 protected:
   using Node = typename BinaryTree<Data>::Node;
   Node const* current = nullptr;
   Node const* reset = nullptr;
   StackVec<Node const*> itrStack;
-
-public:
-
-  BTPreOrderIterator(const BinaryTree<Data>&) noexcept;
-  BTPreOrderIterator(const BTPreOrderIterator<Data>&) = default;
-  BTPreOrderIterator(BTPreOrderIterator<Data>&&) noexcept = default;
-
-  virtual ~BTPreOrderIterator() override = default;
-
-  BTPreOrderIterator& operator=(const BTPreOrderIterator<Data>&) = default;
-  BTPreOrderIterator& operator=(BTPreOrderIterator<Data>&&) noexcept = default;
-
-  virtual bool operator==(const BTPreOrderIterator<Data>&) const noexcept;
-  virtual bool operator!=(const BTPreOrderIterator<Data>&) const noexcept;
-
-  virtual const Data& operator*() const override;
-  virtual bool Terminated() const noexcept override;
-
-  virtual BTPreOrderIterator& operator++() override;
-  virtual void Reset() noexcept override;
 
 };
 
@@ -157,28 +166,26 @@ public:
 template <typename Data>
 class BTPreOrderMutableIterator : public virtual MutableIterator<Data>,
                                   public virtual BTPreOrderIterator<Data> {
+public:
+  BTPreOrderMutableIterator(const MutableBinaryTree<Data>& tree);
+  BTPreOrderMutableIterator(const BTPreOrderMutableIterator&);
+  BTPreOrderMutableIterator(BTPreOrderMutableIterator&&) noexcept;
+
+  ~BTPreOrderMutableIterator() override = default;
+
+  BTPreOrderMutableIterator& operator=(const BTPreOrderMutableIterator&);
+  BTPreOrderMutableIterator& operator=(BTPreOrderMutableIterator&&) noexcept;
+
+  bool operator==(const BTPreOrderMutableIterator&) const noexcept;
+  bool operator!=(const BTPreOrderMutableIterator&) const noexcept;
+
+  Data& operator*() override;
+
 protected:
   using MutableNode = typename MutableBinaryTree<Data>::MutableNode;
   using BTPreOrderIterator<Data>::current;
   using BTPreOrderIterator<Data>::itrStack;
   using BTPreOrderIterator<Data>::reset;
-
-public:
-  BTPreOrderMutableIterator(const MutableBinaryTree<Data>& tree) noexcept : BTPreOrderIterator<Data>(tree) {};
-  BTPreOrderMutableIterator(const BTPreOrderMutableIterator&) = default;
-  BTPreOrderMutableIterator(BTPreOrderMutableIterator&&) = default;
-  virtual ~BTPreOrderMutableIterator() override = default;
-
-  BTPreOrderMutableIterator& operator=(const BTPreOrderMutableIterator&) = default;
-  BTPreOrderMutableIterator& operator=(BTPreOrderMutableIterator&&) noexcept = default;
-
-  using BTPreOrderIterator<Data>::operator==;
-  using BTPreOrderIterator<Data>::operator!=;
-  using BTPreOrderIterator<Data>::operator++;
-  using BTPreOrderIterator<Data>::Reset;
-  using BTPreOrderIterator<Data>::Terminated;
-
-  virtual Data& operator*() override;
 
 };
 
@@ -195,21 +202,22 @@ protected:
 
 public:
   BTPostOrderIterator(const BinaryTree<Data>&) noexcept;
-  BTPostOrderIterator(const BTPostOrderIterator&) = default;
-  BTPostOrderIterator(BTPostOrderIterator&&) = default;
-  virtual ~BTPostOrderIterator() override = default;
+  BTPostOrderIterator(const BTPostOrderIterator&);
+  BTPostOrderIterator(BTPostOrderIterator&&) noexcept;
 
-  virtual bool operator==(const BTPostOrderIterator&) const noexcept;
-  virtual bool operator!=(const BTPostOrderIterator&) const noexcept;
+  ~BTPostOrderIterator() override = default;
 
-  BTPostOrderIterator& operator=(const BTPostOrderIterator&) = default;
-  BTPostOrderIterator& operator=(BTPostOrderIterator&&) = default;
-  virtual const Data& operator*() const override;
+  bool operator==(const BTPostOrderIterator&) const noexcept;
+  bool operator!=(const BTPostOrderIterator&) const noexcept;
 
-  virtual bool Terminated() const noexcept override;
-  virtual BTPostOrderIterator& operator++() override;
+  BTPostOrderIterator& operator=(const BTPostOrderIterator&);
+  BTPostOrderIterator& operator=(BTPostOrderIterator&&) noexcept;
+  const Data& operator*() const override;
 
-  virtual void Reset() noexcept override;
+  bool Terminated() const noexcept override;
+  BTPostOrderIterator& operator++() override;
+
+  void Reset() noexcept override;
 
 protected:
   Node const* Explore(Node const* node);
@@ -232,12 +240,12 @@ public:
 
   BTPostOrderMutableIterator(const MutableBinaryTree<Data>& tree) : BTPostOrderIterator<Data>(tree) {}
   BTPostOrderMutableIterator(const BTPostOrderMutableIterator&) = default;
-  BTPostOrderMutableIterator(BTPostOrderMutableIterator&&) = default;
+  BTPostOrderMutableIterator(BTPostOrderMutableIterator&&) noexcept = default;
 
-  virtual ~BTPostOrderMutableIterator() override = default;
+  ~BTPostOrderMutableIterator() override = default;
 
   BTPostOrderMutableIterator& operator=(const BTPostOrderMutableIterator&) = default;
-  BTPostOrderMutableIterator& operator=(BTPostOrderMutableIterator&&) = default;
+  BTPostOrderMutableIterator& operator=(BTPostOrderMutableIterator&&) noexcept = default;
 
   bool operator==(const BTPostOrderMutableIterator&) const noexcept;
   bool operator!=(const BTPostOrderMutableIterator&) const noexcept;
@@ -248,7 +256,7 @@ public:
   using BTPostOrderIterator<Data>::Reset;
   using BTPostOrderIterator<Data>::Terminated;
 
-  virtual Data& operator*() override;
+  Data& operator*() override;
 
 };
 
@@ -257,6 +265,23 @@ public:
 template <typename Data>
 class BTInOrderIterator : virtual public ForwardIterator<Data>,
                           virtual public ResettableIterator<Data> {
+public:
+  BTInOrderIterator(const BinaryTree<Data>&);
+  BTInOrderIterator(const BTInOrderIterator&);
+  BTInOrderIterator(BTInOrderIterator&&) noexcept;
+
+  ~BTInOrderIterator() override = default;
+  bool operator==(const BTInOrderIterator&) const noexcept;
+  bool operator!=(const BTInOrderIterator&) const noexcept;
+
+  BTInOrderIterator& operator=(const BTInOrderIterator&);
+  BTInOrderIterator& operator=(BTInOrderIterator&&) noexcept;
+
+  BTInOrderIterator& operator++() override;
+  void Reset() noexcept override;
+
+  const Data& operator*() const override;
+  bool Terminated() const noexcept override;
 
 protected:
   using Node = typename BinaryTree<Data>::Node;
@@ -264,26 +289,8 @@ protected:
   Node const* reset = nullptr;
   StackVec<Node const*> itrStack;
 
-public:
-  BTInOrderIterator(const BinaryTree<Data>&) noexcept;
-  BTInOrderIterator(const BTInOrderIterator&) = default;
-  BTInOrderIterator(BTInOrderIterator&&) = default;
-
-  virtual ~BTInOrderIterator() override = default;
-  virtual bool operator==(const BTInOrderIterator&) const noexcept;
-  virtual bool operator!=(const BTInOrderIterator&) const noexcept;
-
-  BTInOrderIterator& operator=(const BTInOrderIterator&) = default;
-  BTInOrderIterator& operator=(BTInOrderIterator&&) = default;
-
-  virtual BTInOrderIterator& operator++() override;
-  virtual void Reset() noexcept override;
-
-  virtual const Data& operator*() const override;
-  virtual bool Terminated() const noexcept override;
-
-protected:
   Node const* ExploreInOrder(Node const* node);
+
 };
 
 /* ************************************************************************** */
@@ -300,14 +307,14 @@ protected:
 public:
   BTInOrderMutableIterator(const MutableBinaryTree<Data>& tree) noexcept : BTInOrderIterator<Data>(tree) {};
   BTInOrderMutableIterator(const BTInOrderMutableIterator&) = default;
-  BTInOrderMutableIterator(BTInOrderMutableIterator&&) = default;
+  BTInOrderMutableIterator(BTInOrderMutableIterator&&) noexcept = default;
 
-  virtual ~BTInOrderMutableIterator() override = default;
-  virtual bool operator==(const BTInOrderMutableIterator&) const noexcept;
-  virtual bool operator!=(const BTInOrderMutableIterator&) const noexcept;
+  ~BTInOrderMutableIterator() override = default;
+  bool operator==(const BTInOrderMutableIterator&) const noexcept;
+  bool operator!=(const BTInOrderMutableIterator&) const noexcept;
 
-  BTInOrderMutableIterator<Data>& operator=(const BTInOrderMutableIterator&) = default;
-  BTInOrderMutableIterator<Data>& operator=(BTInOrderMutableIterator&&) = default;
+  BTInOrderMutableIterator& operator=(const BTInOrderMutableIterator&) = default;
+  BTInOrderMutableIterator& operator=(BTInOrderMutableIterator&&) noexcept = default;
 
   Data& operator*() override;
 
@@ -318,31 +325,30 @@ public:
 template <typename Data>
 class BTBreadthIterator : virtual public ForwardIterator<Data>,
                           virtual public ResettableIterator<Data> {
-
-protected:
-  using Node = typename BinaryTree<Data>::Node;
-  Node const* current = nullptr;
-  Node const* reset = nullptr;
-  QueueVec<Node const*> itrQueue;
-
 public:
   BTBreadthIterator(const BinaryTree<Data>&) noexcept;
-  BTBreadthIterator(const BTBreadthIterator&) = default;
-  BTBreadthIterator(BTBreadthIterator&&) = default;
+  BTBreadthIterator(const BTBreadthIterator&);
+  BTBreadthIterator(BTBreadthIterator&&) noexcept;
 
-  virtual ~BTBreadthIterator() override = default;
+  ~BTBreadthIterator() override;
 
-  BTBreadthIterator& operator=(const BTBreadthIterator&) = default;
-  BTBreadthIterator& operator=(BTBreadthIterator&&) = default;
+  BTBreadthIterator& operator=(const BTBreadthIterator&);
+  BTBreadthIterator& operator=(BTBreadthIterator&&) noexcept;
 
   bool operator==(const BTBreadthIterator&) const noexcept;
   bool operator!=(const BTBreadthIterator&) const noexcept;
 
-  virtual const Data& operator*() const override;
-  virtual bool Terminated() const noexcept override;
+  const Data& operator*() const override;
+  bool Terminated() const noexcept override;
 
-  virtual BTBreadthIterator& operator++() override;
-  virtual void Reset() noexcept override;
+  BTBreadthIterator& operator++() override;
+  void Reset() noexcept override;
+
+protected:
+  using Node = typename BinaryTree<Data>::Node;
+  const Node* current = nullptr;
+  const Node* reset = nullptr;
+  QueueVec<Node const*> itrQueue;
 
 };
 
@@ -351,30 +357,27 @@ public:
 template <typename Data>
 class BTBreadthMutableIterator : virtual public MutableIterator<Data>,
                                  virtual public BTBreadthIterator<Data> {
-
-protected:
-  using MutableNode = typename MutableBinaryTree<Data>::MutableNode;
-  using Node = typename BinaryTree<Data>::Node;
-  using BTBreadthIterator<Data>::current;
-  using BTBreadthIterator<Data>::reset;
-  using BTBreadthIterator<Data>::itrQueue;
-
 public:
 
-  BTBreadthMutableIterator(const MutableBinaryTree<Data>& tree) noexcept : BTBreadthIterator<Data>(tree) {};
-  BTBreadthMutableIterator(const BTBreadthMutableIterator&) = default;
-  BTBreadthMutableIterator(BTBreadthMutableIterator&&) = default;
+  BTBreadthMutableIterator(const MutableBinaryTree<Data>& tree) noexcept;
+  BTBreadthMutableIterator(const BTBreadthMutableIterator&);
+  BTBreadthMutableIterator(BTBreadthMutableIterator&&) noexcept;
 
-  virtual ~BTBreadthMutableIterator() override = default;
+  ~BTBreadthMutableIterator() override = default;
 
-  BTBreadthMutableIterator& operator=(const BTBreadthMutableIterator&) = default;
-  BTBreadthMutableIterator& operator=(BTBreadthMutableIterator&&) = default;
+  BTBreadthMutableIterator& operator=(const BTBreadthMutableIterator&);
+  BTBreadthMutableIterator& operator=(BTBreadthMutableIterator&&) noexcept;
 
   bool operator==(const BTBreadthMutableIterator&) const noexcept;
   bool operator!=(const BTBreadthMutableIterator&) const noexcept;
 
-  virtual const Data& operator*() const override;
+  Data& operator*() override;
 
+protected:
+  using Node = typename BinaryTree<Data>::Node;
+  using BTBreadthIterator<Data>::current;
+  using BTBreadthIterator<Data>::reset;
+  using BTBreadthIterator<Data>::itrQueue;
 };
 
 /* ************************************************************************** */

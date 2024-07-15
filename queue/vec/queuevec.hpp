@@ -53,7 +53,8 @@ public:
   void Clear() override;
 
 protected:
-	void SafeResize(const unsigned long);
+	void SafeResize(unsigned long);
+
 };
 
 /* ************************************************************************** */

@@ -1,6 +1,7 @@
 
 cc = g++
-cflags = -Wall -pedantic -O3 -std=c++20 -fsanitize=address
+cflags = -g -Wall -pedantic -O0 -std=c++20 -fsanitize=address
+wflags = -fsanitize=undefined -fsanitize=leak -fsanitize=pointer-compare -Wextra -Wfloat-equal -Wundef -Wcast-align -Wwrite-strings -Wlogical-op -Wmissing-declarations -Wredundant-decls -Wshadow -Woverloaded-virtual
 
 objects = main.o test.o mytest.o container.o exc1as.o exc1af.o exc1bs.o exc1bf.o exc2as.o exc2af.o exc2bs.o exc2bf.o mytestvector.o mytestlist.o myteststack.o mytestqueue.o
 
@@ -15,6 +16,9 @@ libexc1b = $(libexc1a) stack/stack.hpp stack/lst/stacklst.cpp stack/lst/stacklst
 libexc2a = $(libexc) iterator/iterator.hpp binarytree/binarytree.cpp binarytree/binarytree.hpp binarytree/lnk/binarytreelnk.cpp binarytree/lnk/binarytreelnk.hpp binarytree/vec/binarytreevec.cpp binarytree/vec/binarytreevec.hpp
 
 libexc2b = $(libexc2a) bst/bst.cpp bst/bst.hpp
+
+all: $(objects)
+	$(cc) $(cflags) $(objects) -o main
 
 main: $(objects)
 	$(cc) $(cflags) $(objects) -o main

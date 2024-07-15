@@ -17,7 +17,7 @@ namespace lasd {
 	public:
 		LinearContainer() = default;
 
-		virtual ~LinearContainer() override = default;
+		~LinearContainer() override = default;
 		LinearContainer &operator=(const LinearContainer &) = delete;
 		LinearContainer &operator=(LinearContainer &&) = delete;
 		bool operator==(const LinearContainer &) const noexcept;
@@ -46,10 +46,11 @@ namespace lasd {
 
 	template<typename Data>
 	class SortableLinearContainer : virtual public LinearContainer<Data> {
+
 	public:
 
 		SortableLinearContainer() = default;
-		virtual ~SortableLinearContainer() override = default;
+		~SortableLinearContainer() override = default;
 		SortableLinearContainer &operator=(const SortableLinearContainer &) = delete;
 		SortableLinearContainer &operator=(SortableLinearContainer &&) = delete;
 		bool operator==(const SortableLinearContainer &) const noexcept;
@@ -57,6 +58,8 @@ namespace lasd {
 		void Sort() noexcept;
 
 	protected:
+		void QuickSort(unsigned long, unsigned long);
+
 	};
 
 	/* ************************************************************************** */

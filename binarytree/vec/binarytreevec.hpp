@@ -14,104 +14,73 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec {
-  // Must extend MutableBinaryTree<Data>
-
-private:
-
-  // ...
+class BinaryTreeVec : virtual public MutableBinaryTree<Data> {
 
 protected:
+  using BinaryTree<Data>::size;
 
-  // ...
-
-  struct NodeVec { // Must extend MutableNode
-
-  private:
-
-    // ...
+  struct NodeVec : virtual public MutableBinaryTree<Data>::MutableNode {
+    friend class BinaryTreeVec;
 
   protected:
 
-    // ...
+    unsigned long index = 0;
+    Vector<NodeVec*>* btVec = nullptr;
+    Data value;
 
-  public:
+    NodeVec(const Data&);
+    NodeVec(Data&&) noexcept;
+    NodeVec(const Data& toInsert, unsigned long i, Vector<NodeVec*>*& btVec);
 
-    // ...
+    bool operator==(const NodeVec&) const noexcept;
+    bool operator!=(const NodeVec&) const noexcept;
+
+    bool HasLeftChild() const noexcept override;
+    bool HasRightChild() const noexcept override;
+
+    virtual const Data& Element() const noexcept { return value; }
+    virtual Data& Element() noexcept { return value; }
+
+    virtual const typename BinaryTree<Data>::Node& LeftChild() const;
+    virtual const typename BinaryTree<Data>::Node& RightChild() const;
+
+    virtual typename MutableBinaryTree<Data>::MutableNode& LeftChild();
+    virtual typename MutableBinaryTree<Data>::MutableNode& RightChild();
 
   };
 
+  friend NodeVec;
+  Vector<NodeVec*>* tree = nullptr;
+
 public:
 
-  // Default constructor
-  // BinaryTreeVec() specifiers;
+  BinaryTreeVec();
+  BinaryTreeVec(const TraversableContainer<Data>&);
+  BinaryTreeVec(MappableContainer<Data>&&) noexcept;
 
-  /* ************************************************************************ */
+  BinaryTreeVec(const BinaryTreeVec&);
+  BinaryTreeVec(BinaryTreeVec&&) noexcept;
 
-  // Specific constructors
-  // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a TraversableContainer
-  // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a MappableContainer
+  ~BinaryTreeVec() override;
 
-  /* ************************************************************************ */
+  BinaryTreeVec& operator=(const BinaryTreeVec&);
+  BinaryTreeVec& operator=(BinaryTreeVec&&) noexcept;
 
-  // Copy constructor
-  // BinaryTreeVec(argument) specifiers;
+  bool operator==(const BinaryTreeVec&) const noexcept;
+  bool operator!=(const BinaryTreeVec&) const noexcept;
 
-  // Move constructor
-  // BinaryTreeVec(argument) specifiers;
+  const typename BinaryTree<Data>::Node& Root() const override;
+  typename MutableBinaryTree<Data>::MutableNode& Root() override;
 
-  /* ************************************************************************ */
+  void Clear() override;
 
-  // Destructor
-  // ~BinaryTreeVec() specifiers;
+  using typename TraversableContainer<Data>::TraverseFun;
+  void BreadthTraverse(TraverseFun) const override;
 
-  /* ************************************************************************ */
+  using typename MappableContainer<Data>::MapFun;
+  void BreadthMap(MapFun) override;
 
-  // Copy assignment
-  // type operator=(argument) specifiers;
-
-  // Move assignment
-  // type operator=(argument) specifiers;
-
-  /* ************************************************************************ */
-
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from BinaryTree)
-
-  // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
-
-  /* ************************************************************************ */
-
-  // Specific member function (inherited from MutableBinaryTree)
-
-  // type Root() specifiers; // Override MutableBinaryTree member (throw std::length_error when empty)
-
-  /* ************************************************************************ */
-
-  // Specific member function (inherited from ClearableContainer)
-
-  // type Clear() specifiers; // Override ClearableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member function (inherited from BreadthTraversableContainer)
-
-  // type BreadthTraverse(arguments) specifiers; // Override BreadthTraversableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member function (inherited from BreadthMappableContainer)
-
-  // type BreadthMap(arguments) specifiers; // Override BreadthMappableContainer member
-
-protected:
-
-  // Auxiliary functions, if necessary!
+  bool Empty() const noexcept override;
 
 };
 

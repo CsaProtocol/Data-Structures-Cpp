@@ -5,7 +5,10 @@ namespace lasd {
 
 template<typename Data>
 bool BinaryTree<Data>::Node::operator==(const Node& node) const noexcept {
-	return (this->Element() == node.Element() && this->LeftChild() == node.LeftChild() && this->RightChild() == node.RightChild());
+	return
+	  Element() == node.Element() &&
+		((!HasLeftChild() && !node.HasLeftChild()) || (HasLeftChild() && node.HasLeftChild() && LeftChild() == node.LeftChild())) &&
+		((!HasRightChild() && !node.HasRightChild()) || (HasRightChild() && node.HasRightChild() && RightChild() == node.RightChild()));
 }
 
 template<typename Data>
@@ -15,38 +18,12 @@ bool BinaryTree<Data>::Node::operator!=(const Node& node) const noexcept {
 
 template<typename Data>
 bool BinaryTree<Data>::Node::IsLeaf() const noexcept {
-	return (!HasLeftChild() && !HasRightChild());
-}
-
-template<typename Data>
-bool BinaryTree<Data>::Node::HasLeftChild() const noexcept {
-	try {
-		// ReSharper disable once CppExpressionWithoutSideEffects
-		LeftChild();
-		return true;
-	} catch(...) {
-		return false;
-	}
-}
-
-template<typename Data>
-bool BinaryTree<Data>::Node::HasRightChild() const noexcept {
-	try {
-		// ReSharper disable once CppExpressionWithoutSideEffects
-		RightChild();
-		return true;
-	} catch(...) {
-		return false;
-	}
+	return !(HasLeftChild() || HasRightChild());
 }
 
 template<typename Data>
 bool BinaryTree<Data>::operator==(const BinaryTree& toCompare) const noexcept {
-	if(size != toCompare.Size())
-		return false;
-	if(size == 0)
-		return true;
-	return toCompare.Root() == this->Root();
+	return this->Size() == toCompare.Size() && (!this->Size() || Root() == toCompare.Root());
 }
 
 template<typename Data>
@@ -69,10 +46,10 @@ template<typename Data>
 void BinaryTree<Data>::PreOrderTraverseAux(TraverseFun fun, const Node& toTraverse) const {
 	fun(toTraverse.Element());
 	if(toTraverse.HasLeftChild()) {
-		PreOrderTraverseAux(fun, *toTraverse.LeftChild());
+		PreOrderTraverseAux(fun, toTraverse.LeftChild());
 	}
 	if(toTraverse.HasRightChild()) {
-		PreOrderTraverseAux(fun, *toTraverse.RightChild());
+		PreOrderTraverseAux(fun, toTraverse.RightChild());
 	}
 }
 
@@ -86,10 +63,10 @@ void BinaryTree<Data>::PostOrderTraverse(TraverseFun fun) const {
 template<typename Data>
 void BinaryTree<Data>::PostOrderTraverseAux(TraverseFun fun, const Node& toTraverse) const {
 	if(toTraverse.HasLeftChild()) {
-		PostOrderTraverseAux(fun, *toTraverse.LeftChild());
+		PostOrderTraverseAux(fun, toTraverse.LeftChild());
 	}
 	if(toTraverse.HasRightChild()) {
-		PostOrderTraverseAux(fun, *toTraverse.RightChild());
+		PostOrderTraverseAux(fun, toTraverse.RightChild());
 	}
 	fun(toTraverse.Element());
 }
@@ -162,25 +139,55 @@ void MutableBinaryTree<Data>::BreadthMap(MapFun fun) {
 
 
 /* ************************************************************************** */
-	// ITERATORS
+// PREORDERITERATORS
 /* ************************************************************************** */
 
 template<typename Data>
-BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& toIterate) noexcept {
-	itrStack = StackVec<typename BinaryTree<Data>::Node const*>();
+BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& toIterate)
+	: itrStack(StackVec<typename BinaryTree<Data>::Node const*>()) {
 	if(not toIterate.Empty()) {
-		current = toIterate.Root();
-		reset = toIterate.Root();
+		current = &toIterate.Root();
+		reset = &toIterate.Root();
 	}
 }
 
 template<typename Data>
-bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data>& toCompare) const noexcept {
+BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator& toCopy)
+	: current(toCopy.current), reset(toCopy.reset), itrStack(toCopy.itrStack) {}
+
+template<typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator&& toCopy) noexcept {
+	std::swap(this->current, toCopy.current);
+	std::swap(this->reset, toCopy.reset);
+	std::swap(this->itrStack, toCopy.itrStack);
+}
+
+template<typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(const BTPreOrderIterator& toCopy) {
+	if(this == &toCopy)
+		return *this;
+	current = toCopy.current;
+	reset = toCopy.reset;
+	itrStack = toCopy.itrStack;
+	return *this;
+}
+
+template<typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator&& toCopy) noexcept {
+	std::swap(this->current, toCopy.current);
+	std::swap(this->reset, toCopy.reset);
+	std::swap(this->itrStack, toCopy.itrStack);
+	return *this;
+}
+
+
+template<typename Data>
+bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator& toCompare) const noexcept {
 	return (current == toCompare.current && reset == toCompare.reset);
 }
 
 template<typename Data>
-bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data>& toCompare) const noexcept {
+bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator& toCompare) const noexcept {
 	return !(*this == toCompare);
 }
 
@@ -201,12 +208,12 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++() {
 	if(current == nullptr) throw std::out_of_range("Iterator terminated");
 	if(current->HasLeftChild()) {
 		if(current->HasRightChild()) {
-			itrStack.Push(current->RightChild());
-		} current = &(current->LeftChild());
+			itrStack.Push(&current->RightChild());
+		} current = &current->LeftChild();
 	} else if(current->HasRightChild()) {
-		current = &(current->RightChild());
+		current = &current->RightChild();
 	} else if(!itrStack.Empty()) {
-		current = &(itrStack.TopNPop()->RightChild());
+		current = &itrStack.TopNPop()->RightChild();
 	} else {
 		current = nullptr;
 	} return *this;
@@ -218,12 +225,54 @@ void BTPreOrderIterator<Data>::Reset() noexcept {
 	current = reset;
 }
 
+/* ************************************************************************** */
+// PREORDERMUTABLEITERATOR
+/* ************************************************************************** */
+
+template<typename Data>
+BTPreOrderMutableIterator<Data>::BTPreOrderMutableIterator(const MutableBinaryTree<Data>& tree)
+	: BTPreOrderIterator<Data>::BTPreOrderIterator(tree) {}
+
+template<typename Data>
+BTPreOrderMutableIterator<Data>::BTPreOrderMutableIterator(const BTPreOrderMutableIterator& toCopy)
+	: BTPreOrderIterator<Data>::BTPreOrderIterator(toCopy) {}
+
+template<typename Data>
+BTPreOrderMutableIterator<Data>::BTPreOrderMutableIterator(BTPreOrderMutableIterator&& toCopy) noexcept
+	: BTPreOrderIterator<Data>::BTPreOrderIterator(std::move(toCopy)) {}
+
+template<typename Data>
+BTPreOrderMutableIterator<Data>& BTPreOrderMutableIterator<Data>::operator=(const BTPreOrderMutableIterator& toCopy) {
+	BTPreOrderIterator<Data>::operator=(toCopy);
+	return *this;
+}
+
+template<typename Data>
+BTPreOrderMutableIterator<Data>& BTPreOrderMutableIterator<Data>::operator=(BTPreOrderMutableIterator&& toCopy) noexcept {
+	BTPreOrderIterator<Data>::operator=(std::move(toCopy));
+	return *this;
+}
+
+template<typename Data>
+bool BTPreOrderMutableIterator<Data>::operator==(const BTPreOrderMutableIterator& toCompare) const noexcept {
+	return BTPreOrderIterator<Data>::operator==(toCompare);
+}
+
+template<typename Data>
+bool BTPreOrderMutableIterator<Data>::operator!=(const BTPreOrderMutableIterator& toCompare) const noexcept {
+	return BTPreOrderIterator<Data>::operator!=(toCompare);
+}
+
 template<typename Data>
 Data& BTPreOrderMutableIterator<Data>::operator*() {
 	if(current == nullptr)
 		throw std::out_of_range("Iterator out of range");
-	return current->Element();
+	return const_cast<Data&>(BTPreOrderIterator<Data>::operator*());
 }
+
+/* ************************************************************************** */
+// POSTORDERITERATORS
+/* ************************************************************************** */
 
 template<typename Data>
 BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& tree) noexcept {
@@ -232,6 +281,38 @@ BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& tree) noe
 	    current = nullptr;
     } else if (Explore(reset) != nullptr)
     	current = itrStack.TopNPop();
+}
+
+template<typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator& toCopy) {
+	current = toCopy.current;
+	reset = toCopy.reset;
+	itrStack = toCopy.itrStack;
+}
+
+template<typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(BTPostOrderIterator&& toCopy) noexcept {
+	std::swap(this->current, toCopy.current);
+	std::swap(this->reset, toCopy.reset);
+	std::swap(this->itrStack, toCopy.itrStack);
+}
+
+template<typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator& toCopy) {
+	if(this == &toCopy)
+		return *this;
+	current = toCopy.current;
+	reset = toCopy.reset;
+	itrStack = toCopy.itrStack;
+	return *this;
+}
+
+template<typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator&& toCopy) noexcept {
+	std::swap(this->current, toCopy.current);
+	std::swap(this->reset, toCopy.reset);
+	std::swap(this->itrStack, toCopy.itrStack);
+	return *this;
 }
 
 template<typename Data>
@@ -258,12 +339,12 @@ BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
 }
 
 template<typename Data>
-bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data>& toCompare) const noexcept {
+bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator& toCompare) const noexcept {
 	return (current == toCompare.current && reset == toCompare.reset);
 }
 
 template<typename Data>
-bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data>& toCompare) const noexcept {
+bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator& toCompare) const noexcept {
 	return !(*this == toCompare);
 }
 
@@ -284,7 +365,7 @@ typename BTPostOrderIterator<Data>::Node const* BTPostOrderIterator<Data>::Explo
 	while (node != nullptr){
 		itrStack.Push(node);
 		if (node->IsLeaf()) return (itrStack.Empty())? nullptr : itrStack.Top();
-		else if (node->HasLeftChild())  node = &(node->LeftChild());
+		if (node->HasLeftChild())  node = &(node->LeftChild());
 		else if (node->HasRightChild()) node = &(node->RightChild());
 	}
 	return nullptr;
@@ -307,6 +388,51 @@ Data& BTPostOrderMutableIterator<Data>::operator*() {
 	return current->Element();
 }
 
+/* ************************************************************************** */
+// INORDERITERATORS
+/* ************************************************************************** */
+
+template <typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& tree) noexcept {
+	reset = (tree.Empty())? nullptr : &(tree.Root());
+	if (reset == nullptr)
+		current = nullptr;
+	else if (ExploreInOrder(reset) != nullptr)
+		current = itrStack.TopNPop();
+}
+
+template<typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator& toCopy) {
+	current = toCopy.current;
+	reset = toCopy.reset;
+	itrStack = toCopy.itrStack;
+}
+
+template<typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(BTInOrderIterator&& toCopy) noexcept {
+	std::swap(this->current, toCopy.current);
+	std::swap(this->reset, toCopy.reset);
+	std::swap(this->itrStack, toCopy.itrStack);
+}
+
+template<typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(const BTInOrderIterator& toCopy) {
+	if(this == &toCopy)
+		return *this;
+	current = toCopy.current;
+	reset = toCopy.reset;
+	itrStack = toCopy.itrStack;
+	return *this;
+}
+
+template<typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator&& toCopy) noexcept {
+	std::swap(this->current, toCopy.current);
+	std::swap(this->reset, toCopy.reset);
+	std::swap(this->itrStack, toCopy.itrStack);
+	return *this;
+}
+
 template<typename Data>
 bool BTInOrderIterator<Data>::operator==(const BTInOrderIterator& toCompare) const noexcept {
 	return toCompare.current == current && toCompare.reset == reset;
@@ -317,13 +443,8 @@ bool BTInOrderIterator<Data>::operator!=(const BTInOrderIterator& toCompare) con
 	return !(*this == toCompare);
 }
 
-template <typename Data> BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& tree) noexcept {
-    reset = (tree.Empty())? nullptr : &(tree.Root());
-    if (reset == nullptr) current = nullptr;
-    else if (ExploreInOrder() != nullptr) current = itrStack.TopNPop();
-}
-
-template <typename Data> void BTInOrderIterator<Data>::Reset() noexcept {
+template <typename Data>
+void BTInOrderIterator<Data>::Reset() noexcept {
     itrStack.Clear();
     if (ExploreInOrder(reset) != nullptr)
     	current = itrStack.TopNPop();
@@ -333,22 +454,26 @@ template <typename Data>
 typename BTInOrderIterator<Data>::Node const* BTInOrderIterator<Data>::ExploreInOrder(Node const* node) {
     while (node != nullptr){
         itrStack.Push(node);
-        node = (node->HasLeftChild())? &(node->LeftChild()) : nullptr;
+        node = node->HasLeftChild() ? &node->LeftChild() : nullptr;
     }
-    return (itrStack.Empty())? nullptr : itrStack.Top();
+    return itrStack.Empty()? nullptr : itrStack.Top();
 }
 
 template <typename Data>
 BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++() {
-    if (current == nullptr) throw std::out_of_range("attempt to increment a terminated iterator");
-    if (current->HasRightChild()) NavigateToLeft(&(current->RightChild()));
+    if (current == nullptr) {
+	    throw std::out_of_range("Iterator already terminated");
+    }
+    if (current->HasRightChild()) {
+	    ExploreInOrder(&(current->RightChild()));
+    }
     current = (itrStack.Empty())? nullptr : itrStack.TopNPop();
     return *this;
 }
 
 template <typename Data>
 const Data& BTInOrderIterator<Data>::operator*() const {
-		if (current == nullptr) throw std::out_of_range("attempt to dereference a terminated iterator");
+		if (current == nullptr) throw std::out_of_range("Iterator out of range");
 		return current->Element();
 }
 
@@ -374,16 +499,51 @@ Data &BTInOrderMutableIterator<Data>::operator*() {
 	return current->Element();
 }
 
+/* ************************************************************************** */
+// BREADTHITERATORS (LEVEL)
+/* ************************************************************************** */
+
 template <typename Data>
-BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& tree) noexcept {
-	itrQueue = lasd::QueueVec<Node const*>();
-	current = (tree.Empty())? nullptr : &(tree.Root());
-	reset = current;
+BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& tree) noexcept
+	: current(tree.Empty() ? nullptr : &tree.Root()), reset(current), itrQueue(lasd::QueueVec<Node const*>()) {}
+
+template<typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(const BTBreadthIterator& toCopy)
+	: current(toCopy.current), reset(toCopy.reset), itrQueue(toCopy.itrQueue) {}
+
+template<typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(BTBreadthIterator&& toMove) noexcept {
+	std::swap(this->current, toMove.current);
+	std::swap(this->reset, toMove.reset);
+	std::swap(this->itrQueue, toMove.itrQueue);
+}
+
+template<typename Data>
+BTBreadthIterator<Data>::~BTBreadthIterator() {
+	itrQueue.Clear();
+}
+
+template<typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthIterator& toCopy) {
+	if(this == &toCopy)
+		return *this;
+	current = toCopy.current;
+	reset = toCopy.reset;
+	itrQueue = toCopy.itrQueue;
+	return *this;
+}
+
+template<typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(BTBreadthIterator&& toMove) noexcept {
+	std::swap(this->current, toMove.current);
+	std::swap(this->reset, toMove.reset);
+	std::swap(this->itrQueue, toMove.itrQueue);
+	return *this;
 }
 
 template<typename Data>
 bool BTBreadthIterator<Data>::operator==(const BTBreadthIterator& toCompare) const noexcept {
-	return toCompare.current == current && toCompare.reset == reset;
+	return toCompare.current == current && toCompare.reset == reset && toCompare.itrQueue == itrQueue;
 }
 
 template<typename Data>
@@ -403,21 +563,69 @@ bool BTBreadthIterator<Data>::Terminated() const noexcept {
 	return current == nullptr;
 }
 
+template <typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++() {
+	if (current == nullptr) {
+		throw std::out_of_range("Iterator already terminated");
+	}
+	if(current->HasLeftChild()) {
+		itrQueue.Enqueue(current->LeftChild());
+	}
+	if(current->HasRightChild()) {
+		itrQueue.Enqueue(current->RightChild());
+	}
+	current = !itrQueue.Empty() ? itrQueue.HeadNDequeue() : nullptr;
+	return *this;
+}
+
 template <typename Data> void BTBreadthIterator<Data>::Reset() noexcept {
   itrQueue.Clear();
   current = reset;
 }
 
+/* ************************************************************************** */
+// MUTABLEBREADTHITERATORS (LEVEL)
+/* ************************************************************************** */
+
 template <typename Data>
-BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++() {
-  if (current == nullptr)
-  	throw std::out_of_range("Iterator already terminated");
-  if(current->HasLeftChild())
-  	itrQueue.Enqueue(&(current->LeftChild()));
-  if(current->HasRightChild())
-  	itrQueue.Enqueue(&(current->RightChild()));
-	current = (!itrQueue.Empty()) ? itrQueue.HeadNDequeue() : nullptr;
-  return *this;
+BTBreadthMutableIterator<Data>::BTBreadthMutableIterator(const MutableBinaryTree<Data>& tree)
+	: BTBreadthIterator<Data>::BTBreadthIterator(tree) {}
+
+template<typename Data>
+BTBreadthMutableIterator<Data>::BTBreadthMutableIterator(const BTBreadthMutableIterator& toCopy)
+	: BTBreadthIterator<Data>::BTBreadthIterator(toCopy) {}
+
+template<typename Data>
+BTBreadthMutableIterator<Data>::BTBreadthMutableIterator(BTBreadthMutableIterator&& toMove) noexcept
+	: BTBreadthIterator<Data>::BTBreadthIterator(std::move(toMove)) {}
+
+template<typename Data>
+BTBreadthMutableIterator<Data>& BTBreadthMutableIterator<Data>::operator=(const BTBreadthMutableIterator& toCopy) {
+	BTBreadthIterator<Data>::operator=(toCopy);
+	return *this;
+}
+
+template<typename Data>
+BTBreadthMutableIterator<Data>& BTBreadthMutableIterator<Data>::operator=(BTBreadthMutableIterator&& toMove) noexcept {
+	BTBreadthIterator<Data>::operator=(std::move(toMove));
+	return *this;
+}
+
+template<typename Data>
+bool BTBreadthMutableIterator<Data>::operator==(const BTBreadthMutableIterator& toCompare) const noexcept {
+	return BTBreadthIterator<Data>::operator==(toCompare);
+}
+
+template<typename Data>
+bool BTBreadthMutableIterator<Data>::operator!=(const BTBreadthMutableIterator& toCompare) const noexcept {
+	return !(*this == toCompare);
+}
+
+template<typename Data>
+Data& BTBreadthMutableIterator<Data>::operator*() {
+	if(current == nullptr)
+		throw std::out_of_range("Iterator out of range");
+	return const_cast<Data&>(BTBreadthIterator<Data>::operator*());
 }
 
 

@@ -3,6 +3,7 @@
 #define VECTORTEST_HPP
 
 #include "../../vector/vector.hpp"
+#include <iostream>
 
 /* ************************************************************************** */
 

@@ -10,33 +10,33 @@ template<typename Data>
 StackLst<Data>::StackLst(MappableContainer<Data>&& container) noexcept : List<Data>(std::move(container)) {}
 
 template<typename Data>
-StackLst<Data>::StackLst(const StackLst<Data>& stack) : List<Data>(stack) {}
+StackLst<Data>::StackLst(const StackLst& stack) : List<Data>(stack) {}
 
 template<typename Data>
-StackLst<Data>::StackLst(StackLst<Data>&& stack) noexcept : List<Data>(std::move(stack)) {}
+StackLst<Data>::StackLst(StackLst&& stack) noexcept : List<Data>(std::move(stack)) {}
 
 template<typename Data>
 StackLst<Data>::~StackLst() = default;
 
 template<typename Data>
-StackLst<Data>& StackLst<Data>::operator=(const StackLst<Data>& stack) {
+StackLst<Data>& StackLst<Data>::operator=(const StackLst& stack) {
 	List<Data>::operator=(stack);
 	return *this;
 }
 
 template<typename Data>
-StackLst<Data>& StackLst<Data>::operator=(StackLst<Data>&& stack) noexcept {
+StackLst<Data>& StackLst<Data>::operator=(StackLst&& stack) noexcept {
     List<Data>::operator=(std::move(stack));
     return *this;
 }
 
 template<typename Data>
-bool StackLst<Data>::operator==(const StackLst<Data>& stack) const noexcept {
+bool StackLst<Data>::operator==(const StackLst& stack) const noexcept {
     return List<Data>::operator==(stack);
 }
 
 template<typename Data>
-bool StackLst<Data>::operator!=(const StackLst<Data>& stack) const noexcept {
+bool StackLst<Data>::operator!=(const StackLst& stack) const noexcept {
 	return List<Data>::operator!=(stack);
 }
 

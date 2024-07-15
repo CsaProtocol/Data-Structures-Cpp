@@ -13,91 +13,75 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeLnk {
-  // Must extend MutableBinaryTree<Data>
-
-private:
-
-  // ...
+class BinaryTreeLnk : public virtual MutableBinaryTree<Data> {
 
 protected:
 
-  // using BinaryTree<Data>::???;
+  using BinaryTree<Data>::size;
 
-  // ...
+  struct NodeLnk : public virtual MutableBinaryTree<Data>::MutableNode {
+    friend class BinaryTreeLnk;
 
-  struct NodeLnk { // Must extend MutableNode
+    NodeLnk(NodeLnk* left, NodeLnk* right)
+      : left(left),
+        right(right) {
+    }
 
-  private:
+    explicit NodeLnk(const Data &value)
+      : value(value) {
+    }
 
-    // ...
+    ~NodeLnk() override {
+      if(this->left != nullptr) delete left;
+      if(this->right != nullptr) delete right;
+    }
 
-  protected:
+    Data value;
+    NodeLnk* left = nullptr;
+    NodeLnk* right = nullptr;
 
-    // ...
+    const Data& Element() const noexcept override { return value; }
+    Data& Element() noexcept override { return value; }
 
-  public:
+    const typename BinaryTree<Data>::Node& LeftChild() const override;
+    const typename BinaryTree<Data>::Node& RightChild() const override;
 
-    // ...
+    typename MutableBinaryTree<Data>::MutableNode& LeftChild() override;
+    typename MutableBinaryTree<Data>::MutableNode& RightChild() override;
 
   };
 
+  NodeLnk* root = nullptr;
+
 public:
 
-  // Default constructor
-  // BinaryTreeLnk() specifiers;
+  BinaryTreeLnk() = default;
+  BinaryTreeLnk(const TraversableContainer<Data>&);
+  BinaryTreeLnk(MappableContainer<Data>&&) noexcept;
 
-  /* ************************************************************************ */
+  BinaryTreeLnk(const BinaryTreeLnk&);
+  BinaryTreeLnk(BinaryTreeLnk&&) noexcept;
 
-  // Specific constructors
-  // BinaryTreeLnk(argument) specifiers; // A binary tree obtained from a TraversableContainer
-  // BinaryTreeLnk(argument) specifiers; // A binary tree obtained from a MappableContainer
+  ~BinaryTreeLnk() override;
 
-  /* ************************************************************************ */
+  BinaryTreeLnk& operator=(const BinaryTreeLnk&);
+  BinaryTreeLnk& operator=(BinaryTreeLnk&&) noexcept;
 
-  // Copy constructor
-  // BinaryTreeLnk(argument) specifiers;
+  bool operator==(const BinaryTreeLnk&) const noexcept;
+  bool operator!=(const BinaryTreeLnk&) const noexcept;
 
-  // Move constructor
-  // BinaryTreeLnk(argument) specifiers;
+  const typename BinaryTree<Data>::Node& Root() const override;
+  typename MutableBinaryTree<Data>::MutableNode& Root() override;
 
-  /* ************************************************************************ */
 
-  // Destructor
-  // ~BinaryTreeLnk() specifiers;
+  void Clear() override;
 
-  /* ************************************************************************ */
-
-  // Copy assignment
-  // type operator=(argument) specifiers;
-
-  // Move assignment
-  // type operator=(argument) specifiers;
-
-  /* ************************************************************************ */
-
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from BinaryTree)
-
-  // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
-
-  /* ************************************************************************ */
-
-  // Specific member function (inherited from MutableBinaryTree)
-
-  // type Root() specifiers; // Override MutableBinaryTree member (throw std::length_error when empty)
-
-  /* ************************************************************************ */
-
-  // Specific member function (inherited from ClearableContainer)
-
-  // type Clear() specifiers; // Override ClearableContainer member
-
+protected:
+  template<typename GLPRvalue>
+  // Accepts both glvalue and prvalue
+  void AuxConstructorBreadth(QueueVec<NodeLnk*>&, GLPRvalue&& value);
+  void AuxCopy(NodeLnk*, const NodeLnk*);
+  bool AuxEqual(const NodeLnk*, const NodeLnk*) const noexcept;
 };
 
 /* ************************************************************************** */

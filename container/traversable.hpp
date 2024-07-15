@@ -67,7 +67,7 @@ public:
   template <typename Accumulator>
   Accumulator PreOrderFold(FoldFun<Accumulator>, Accumulator) const;
 
-  inline virtual void Traverse(TraverseFun fun) const override {
+  virtual void Traverse(TraverseFun fun) const override {
     PreOrderTraverse(fun);
   }
 
@@ -99,7 +99,7 @@ public:
   template <typename Accumulator>
   Accumulator PostOrderFold(FoldFun<Accumulator>, Accumulator) const;
 
-  inline virtual void Traverse(TraverseFun fun) const override {
+  virtual void Traverse(TraverseFun fun) const override {
     PostOrderTraverse(fun);
   }
 
@@ -129,7 +129,7 @@ public:
   template <typename Accumulator>
   Accumulator InOrderFold(FoldFun<Accumulator>, Accumulator) const;
 
-  inline void Traverse(TraverseFun fun) const override {
+  virtual void Traverse(TraverseFun fun) const override {
     InOrderTraverse(fun);
   }
 
@@ -148,9 +148,8 @@ public:
   BreadthTraversableContainer& operator=(const BreadthTraversableContainer&) = delete;
   BreadthTraversableContainer& operator=(BreadthTraversableContainer&&) = delete;
 
-  virtual bool operator==(const BreadthTraversableContainer &) const noexcept = delete;
-  virtual bool operator!=(const BreadthTraversableContainer &) const noexcept = delete;
-
+  bool operator==(const BreadthTraversableContainer&) const noexcept = delete;
+  bool operator!=(const BreadthTraversableContainer&) const noexcept = delete;
 
   using typename TraversableContainer<Data>::TraverseFun;
   virtual void BreadthTraverse(TraverseFun) const = 0;
@@ -161,7 +160,7 @@ public:
   template <typename Accumulator>
   Accumulator BreadthFold(FoldFun<Accumulator>, Accumulator) const;
 
-  inline void Traverse(TraverseFun fun) const override {
+  virtual void Traverse(TraverseFun fun) const override {
     BreadthTraverse(fun);
   }
 

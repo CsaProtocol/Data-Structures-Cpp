@@ -170,11 +170,10 @@ template<typename Data>
 bool SortableVector<Data>::operator==(const SortableVector<Data>& toCompare) const noexcept {
 	if(this->size != toCompare.Size()) {
 		return false;
-	} else {
-		for (ulong i = 0; i < this->size; i++) {
-			if(this->elements[i] != toCompare.elements[i]) {
-				return false;
-			}
+	}
+	for (ulong i = 0; i < this->size; i++) {
+		if(this->elements[i] != toCompare.elements[i]) {
+			return false;
 		}
 	} return true;
 }

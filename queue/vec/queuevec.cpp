@@ -4,10 +4,13 @@ namespace lasd {
 /* ************************************************************************** */
 
 template<typename Data>
-QueueVec<Data>::QueueVec() : Vector<Data>(15) {}
+QueueVec<Data>::QueueVec() {
+	elements = new Data[5];
+	this->size = 5;
+}
 
 template <typename Data>
-QueueVec<Data>::QueueVec(const TraversableContainer<Data>& con) : Vector<Data>::Vector(5) {;
+QueueVec<Data>::QueueVec(const TraversableContainer<Data>& con) : Vector<Data>::Vector(5) {
 	auto functor = [this] (const Data& value) {
 		Enqueue(value);
 	}; con.Traverse(functor);
@@ -88,11 +91,12 @@ Data& QueueVec<Data>::Head() {
 }
 
 template <typename Data>
-void QueueVec<Data>::Dequeue() {
-  if (this->Empty()) throw std::length_error("Queue is empty");
-  queueHead++;
-  queueRealSize--;
-  if (queueHead == size) queueHead = 0;
+void QueueVec<Data>::Dequeue() { //TODO - Rimpicciolisci la coda se necessario
+	if (this->Empty()) throw std::length_error("Queue is empty");
+	queueHead++;
+	queueRealSize--;
+	if (queueHead == size) queueHead = 0;
+	if (queueRealSize < size/3) this->SafeResize(size/2);
 }
 
 template <typename Data>
@@ -105,7 +109,8 @@ Data QueueVec<Data>::HeadNDequeue() {
 
 template <typename Data>
 void QueueVec<Data>::Enqueue(const Data& value) {
-  if (queueRealSize == size) this->SafeResize(size * 1.3);
+  if (queueRealSize == size)
+  	this->SafeResize(size * 1.3);
   unsigned long index = queueHead + queueRealSize;
   if (index >= size) index -= size;
   this->elements[index] = value;
@@ -142,14 +147,24 @@ void QueueVec<Data>::Clear() {
 template<typename Data>
 void QueueVec<Data>::SafeResize(const unsigned long newSize) {
 	Data* tempelements = new Data[newSize];
-	std::copy(elements[queueHead], elements[size - queueHead], tempelements);
-	std::copy(elements, elements + queueHead - 1, tempelements + size - queueHead);
+	if(queueRealSize + queueHead > size) {
+		std::copy(elements + queueHead, elements + size - 1, tempelements);
+		std::copy(elements, elements + queueHead - 1, tempelements + size - queueHead);
+	} else {
+		std::copy(elements + queueHead, elements + queueHead + queueRealSize - 1, tempelements);
+	} queueHead = 0;
 	delete[] elements;
-	elements = tempelements;
-	size *= 1.3;
+	std::swap(elements, tempelements);
+	this->size = newSize;
+	/*Data* tempelements = new Data[newSize];
+	std::copy(elements + queueHead, elements + size - 1, tempelements);
+	std::copy(elements, elements + queueHead - 1, tempelements + size - queueHead);
+	queueHead = 0;
+	delete[] elements;
+	elements = nullptr;
+	std::swap(elements, tempelements);
+	this->size = newSize;*/
 }
-
-
 
 
 /* ************************************************************************** */

@@ -47,7 +47,7 @@ List<Data>::~List() noexcept {
 }
 
 template<typename Data>
-List<Data>& List<Data>::operator=(const List<Data>& lst) noexcept {
+List<Data>& List<Data>::operator=(const List& lst) noexcept {
     if(this != &lst){
         Clear();
         Node* temp = lst.head;
@@ -60,7 +60,7 @@ List<Data>& List<Data>::operator=(const List<Data>& lst) noexcept {
 }
 
 template<typename Data>
-List<Data>& List<Data>::operator=(List<Data>&& lst) noexcept {
+List<Data>& List<Data>::operator=(List&& lst) noexcept {
     std::swap(this->head, lst.head);
     std::swap(this->tail, lst.tail);
     std::swap(this->size, lst.size);
@@ -68,7 +68,7 @@ List<Data>& List<Data>::operator=(List<Data>&& lst) noexcept {
 }
 
 template<typename Data>
-bool List<Data>::operator==(const List<Data>& lst) const noexcept {
+bool List<Data>::operator==(const List& lst) const noexcept {
     if(this->Size() != lst.Size()){
         return false;
     }
@@ -85,7 +85,7 @@ bool List<Data>::operator==(const List<Data>& lst) const noexcept {
 }
 
 template<typename Data>
-bool List<Data>::operator!=(const List<Data>& lst) const noexcept {
+bool List<Data>::operator!=(const List& lst) const noexcept {
     return !(*this == lst);
 }
 
@@ -140,6 +140,7 @@ void List<Data>::RemoveFromFront() {
     } if(this->size == 1) {
         this->tail = nullptr;
     }
+    // ReSharper disable once CppLocalVariableMayBeConst -- Cannot be const because of delete
     Node* temp = this->head;
     this->head = this->head->next;
     delete temp;
